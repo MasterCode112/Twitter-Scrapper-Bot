@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>README.md</title>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+  <div id="content"></div>
+  <script>
+    fetch("README.md")
+      .then(response => response.text())
+      .then(text => {
+        document.getElementById("content").innerHTML = marked(text);
+      });
+  </script>
+  Manual uses of how to scrap data from twitter
+</body>
+</html>
