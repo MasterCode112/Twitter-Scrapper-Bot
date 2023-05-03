@@ -1,0 +1,243 @@
+1682257693314	geckodriver	INFO	Listening on 127.0.0.1:49007
+1682257695370	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/usr ... =3" "--remote-debugging-port" "58507" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileXU3IpB"
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+1682257696166	Marionette	INFO	Marionette enabled
+1682257696194	Marionette	INFO	Listening on port 36881
+WebDriver BiDi listening on ws://localhost:58507
+ATTENTION: default value of option mesa_glthread overridden by environment.
+Read port: 36881
+1682257696941	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileXU3IpB/search.json.mozlz4", (void 0)))
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.jsm
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+DevTools listening on ws://localhost:58507/devtools/browser/3c2afc25-a046-49bf-b871-c754fecebb32
+JavaScript error: https://abs.twimg.com/responsive-web/client-web-legacy/vendor.38c64f7a.js, line 82: Error: ApiError: https://api.twitter.com/1.1/onboarding/sso_init.json HTTP-0 codes:[1004] trace_ids:[null]
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.jsm
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+console.error: "Error during quit-application-granted: [Exception... \"File error: Not found\"  nsresult: \"0x80520012 (NS_ERROR_FILE_NOT_FOUND)\"  location: \"JS frame :: resource:///modules/BrowserGlue.jsm :: _onQuitApplicationGranted/tasks< :: line 1996\"  data: no]"
+1682257775983	Marionette	INFO	Stopped listening on port 36881
+1682257776536	geckodriver::marionette	ERROR	Failed to close browser connection: Socket not connected (os error 107)
+[2023-04-23T13:49:36Z ERROR glean] Can't persist ping lifetime data: Error { kind: Rkv(IoError(Os { code: 2, kind: NotFound, message: "No such file or directory" })) }
+1682258596433	geckodriver	INFO	Listening on 127.0.0.1:36795
+1682258598474	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/usr ... =3" "--remote-debugging-port" "35303" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileBEWzEY"
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+1682258598918	Marionette	INFO	Marionette enabled
+1682258598920	Marionette	INFO	Listening on port 36679
+WebDriver BiDi listening on ws://localhost:35303
+ATTENTION: default value of option mesa_glthread overridden by environment.
+Read port: 36679
+1682258599368	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileBEWzEY/search.json.mozlz4", (void 0)))
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.jsm
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+DevTools listening on ws://localhost:35303/devtools/browser/e54f5e64-3bac-41c6-9685-f184581ede50
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.jsm
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+console.error: "Error during quit-application-granted: [Exception... \"File error: Not found\"  nsresult: \"0x80520012 (NS_ERROR_FILE_NOT_FOUND)\"  location: \"JS frame :: resource:///modules/BrowserGlue.jsm :: _onQuitApplicationGranted/tasks< :: line 1996\"  data: no]"
+1682258640980	Marionette	INFO	Stopped listening on port 36679
+1682258759534	geckodriver	INFO	Listening on 127.0.0.1:41417
+1682258761579	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/usr ... =3" "--remote-debugging-port" "42957" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofile5DeISN"
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+1682258762032	Marionette	INFO	Marionette enabled
+1682258762034	Marionette	INFO	Listening on port 44571
+WebDriver BiDi listening on ws://localhost:42957
+ATTENTION: default value of option mesa_glthread overridden by environment.
+Read port: 44571
+1682258762559	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofile5DeISN/search.json.mozlz4", (void 0)))
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.jsm
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+DevTools listening on ws://localhost:42957/devtools/browser/d6251a6c-7792-46b2-a799-3b1a8786e294
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.jsm
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+console.error: "Error during quit-application-granted: [Exception... \"File error: Not found\"  nsresult: \"0x80520012 (NS_ERROR_FILE_NOT_FOUND)\"  location: \"JS frame :: resource:///modules/BrowserGlue.jsm :: _onQuitApplicationGranted/tasks< :: line 1996\"  data: no]"
+1682258784927	Marionette	INFO	Stopped listening on port 44571
+JavaScript error: resource://gre/modules/UrlClassifierListManager.jsm, line 694: TypeError: this.tablesData[table] is undefined
+[2023-04-23T14:06:25Z ERROR glean] Can't persist ping lifetime data: Error { kind: Rkv(IoError(Os { code: 2, kind: NotFound, message: "No such file or directory" })) }
+1682258785830	geckodriver::marionette	ERROR	Failed to close browser connection: Socket not connected (os error 107)
+1682262448459	geckodriver	INFO	Listening on 127.0.0.1:44043
+1682262450500	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/usr ... =3" "--remote-debugging-port" "37581" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileFcYh00"
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+1682262450952	Marionette	INFO	Marionette enabled
+1682262450954	Marionette	INFO	Listening on port 38539
+WebDriver BiDi listening on ws://localhost:37581
+ATTENTION: default value of option mesa_glthread overridden by environment.
+Read port: 38539
+1682262451398	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileFcYh00/search.json.mozlz4", (void 0)))
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.jsm
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+DevTools listening on ws://localhost:37581/devtools/browser/55df3168-1b7c-4ece-8760-402d494c5ceb
+JavaScript error: https://abs.twimg.com/responsive-web/client-web-legacy/vendor.38c64f7a.js, line 82: Error: ApiError: https://api.twitter.com/1.1/onboarding/sso_init.json HTTP-0 codes:[1004] trace_ids:[null]
+JavaScript error: https://abs.twimg.com/responsive-web/client-web-legacy/vendor.38c64f7a.js, line 82: Error: ApiError: https://api.twitter.com/1.1/onboarding/sso_init.json HTTP-0 codes:[1004] trace_ids:[null]
+JavaScript error: https://abs.twimg.com/responsive-web/client-web-legacy/vendor.38c64f7a.js, line 82: Error: ApiError: https://api.twitter.com/1.1/onboarding/sso_init.json HTTP-0 codes:[1004] trace_ids:[null]
+JavaScript error: https://abs.twimg.com/responsive-web/client-web-legacy/vendor.38c64f7a.js, line 82: Error: ApiError: https://api.twitter.com/1.1/onboarding/sso_init.json HTTP-0 codes:[1004] trace_ids:[null]
+JavaScript error: https://twitter.com/search?q=(to%3AMasterCode112)%20until%3A2023-01-26%20since%3A2023-01-25%20&src=typed_query&f=live, line 155: ChunkLoadError: Loading chunk shared~ondemand.EmojiPickerData~ondemand.ParticipantReaction~ondemand.EmojiPicker failed.
+(error: https://abs.twimg.com/responsive-web/client-web-legacy/shared~ondemand.EmojiPickerData~ondemand.ParticipantReaction~ondemand.EmojiPicker.10f3ca2a.js)
+JavaScript error: https://abs.twimg.com/responsive-web/client-web-legacy/vendor.38c64f7a.js, line 82: Error: ApiError: https://api.twitter.com/1.1/onboarding/sso_init.json HTTP-0 codes:[1004] trace_ids:[null]
+JavaScript error: https://twitter.com/search?q=(to%3AMasterCode112)%20until%3A2023-01-28%20since%3A2023-01-27%20&src=typed_query&f=live, line 155: ChunkLoadError: Loading chunk i18n/emoji-en failed.
+(error: https://abs.twimg.com/responsive-web/client-web-legacy/i18n/emoji-en.9523b2aa.js)
+JavaScript error: https://twitter.com/search?q=(to%3AMasterCode112)%20until%3A2023-01-31%20since%3A2023-01-30%20&src=typed_query&f=live, line 155: ChunkLoadError: Loading chunk shared~ondemand.EmojiPickerData~ondemand.ParticipantReaction~ondemand.EmojiPicker failed.
+(error: https://abs.twimg.com/responsive-web/client-web-legacy/shared~ondemand.EmojiPickerData~ondemand.ParticipantReaction~ondemand.EmojiPicker.10f3ca2a.js)
+[GFX1-]: Unrecognized feature ACCELERATED_CANVAS2D
+JavaScript error: https://abs.twimg.com/responsive-web/client-web-legacy/vendor.38c64f7a.js, line 82: Error: ApiError: https://api.twitter.com/1.1/onboarding/sso_init.json HTTP-0 codes:[1004] trace_ids:[null]
+JavaScript error: https://twitter.com/search?q=(to%3AMasterCode112)%20until%3A2023-02-18%20since%3A2023-02-17%20&src=typed_query&f=live, line 155: ChunkLoadError: Loading chunk shared~ondemand.EmojiPickerData~ondemand.ParticipantReaction~ondemand.EmojiPicker failed.
+(error: https://abs.twimg.com/responsive-web/client-web-legacy/shared~ondemand.EmojiPickerData~ondemand.ParticipantReaction~ondemand.EmojiPicker.10f3ca2a.js)
+1682262847213	Marionette	INFO	Stopped listening on port 38539
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.jsm
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+console.error: "Error during quit-application-granted: [Exception... \"File error: Not found\"  nsresult: \"0x80520012 (NS_ERROR_FILE_NOT_FOUND)\"  location: \"JS frame :: resource:///modules/BrowserGlue.jsm :: _onQuitApplicationGranted/tasks< :: line 1996\"  data: no]"
+1682263084917	geckodriver	INFO	Listening on 127.0.0.1:42431
+1682263086980	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/usr ... =3" "--remote-debugging-port" "40515" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofilePDLaL4"
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+1682263087427	Marionette	INFO	Marionette enabled
+1682263087429	Marionette	INFO	Listening on port 40071
+WebDriver BiDi listening on ws://localhost:40515
+ATTENTION: default value of option mesa_glthread overridden by environment.
+Read port: 40071
+1682263087930	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofilePDLaL4/search.json.mozlz4", (void 0)))
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.jsm
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+DevTools listening on ws://localhost:40515/devtools/browser/baa26379-4124-48fc-a739-86b40f64f2e4
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.jsm
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+console.error: "Error during quit-application-granted: [Exception... \"File error: Not found\"  nsresult: \"0x80520012 (NS_ERROR_FILE_NOT_FOUND)\"  location: \"JS frame :: resource:///modules/BrowserGlue.jsm :: _onQuitApplicationGranted/tasks< :: line 1996\"  data: no]"
+1682263105285	Marionette	INFO	Stopped listening on port 40071
+1682263107353	geckodriver::marionette	ERROR	Failed to close browser connection: Socket not connected (os error 107)
+1682278931043	geckodriver	INFO	Listening on 127.0.0.1:54051
+1682278933083	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/usr ... =3" "--remote-debugging-port" "48215" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofile9xTmyP"
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+1682278933536	Marionette	INFO	Marionette enabled
+1682278933538	Marionette	INFO	Listening on port 44635
+WebDriver BiDi listening on ws://localhost:48215
+ATTENTION: default value of option mesa_glthread overridden by environment.
+Read port: 44635
+1682278934068	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofile9xTmyP/search.json.mozlz4", (void 0)))
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.jsm
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+DevTools listening on ws://localhost:48215/devtools/browser/a05a7a85-26ce-41fb-a085-c40adb5ba115
+JavaScript error: https://abs.twimg.com/responsive-web/client-web-legacy/vendor.38c64f7a.js, line 82: Error: ApiError: https://api.twitter.com/1.1/onboarding/sso_init.json HTTP-0 codes:[1004] trace_ids:[null]
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.jsm
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+console.error: "Error during quit-application-granted: [Exception... \"File error: Not found\"  nsresult: \"0x80520012 (NS_ERROR_FILE_NOT_FOUND)\"  location: \"JS frame :: resource:///modules/BrowserGlue.jsm :: _onQuitApplicationGranted/tasks< :: line 1996\"  data: no]"
+1682278967363	Marionette	INFO	Stopped listening on port 44635
+1682278969401	geckodriver::marionette	ERROR	Failed to close browser connection: Socket not connected (os error 107)
+1682344480117	geckodriver	INFO	Listening on 127.0.0.1:58389
+1682344480602	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/usr ... =3" "--remote-debugging-port" "52831" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofilettS5ST"
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+1682344486480	Marionette	INFO	Marionette enabled
+1682344486497	Marionette	INFO	Listening on port 39931
+WebDriver BiDi listening on ws://localhost:52831
+Read port: 39931
+Read port: 39931
+1682344488030	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofilettS5ST/search.json.mozlz4", (void 0)))
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.jsm
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+console.error: Region.jsm: "Error fetching region" (new Error("TIMEOUT", "resource://gre/modules/Region.jsm", 767))
+console.error: Region.jsm: "Failed to fetch region" (new Error("TIMEOUT", "resource://gre/modules/Region.jsm", 419))
+DevTools listening on ws://localhost:52831/devtools/browser/1e7b9f05-5643-4d65-997f-01de305a0a8d
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.jsm
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+console.error: "Error during quit-application-granted: [Exception... \"File error: Not found\"  nsresult: \"0x80520012 (NS_ERROR_FILE_NOT_FOUND)\"  location: \"JS frame :: resource:///modules/BrowserGlue.jsm :: _onQuitApplicationGranted/tasks< :: line 1996\"  data: no]"
+1682344578231	Marionette	INFO	Stopped listening on port 39931
+1682344585804	geckodriver	INFO	Listening on 127.0.0.1:54651
+1682344587858	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/usr ... =3" "--remote-debugging-port" "46571" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofile1uAAoo"
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+1682344588301	Marionette	INFO	Marionette enabled
+1682344588304	Marionette	INFO	Listening on port 43479
+WebDriver BiDi listening on ws://localhost:46571
+ATTENTION: default value of option mesa_glthread overridden by environment.
+Read port: 43479
+1682344588893	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofile1uAAoo/search.json.mozlz4", (void 0)))
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.jsm
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+DevTools listening on ws://localhost:46571/devtools/browser/2815e0e4-357d-41a5-99c1-f39d9556e881
+JavaScript error: https://abs.twimg.com/responsive-web/client-web-legacy/vendor.38c64f7a.js, line 82: Error: ApiError: https://api.twitter.com/1.1/onboarding/sso_init.json HTTP-0 codes:[1004] trace_ids:[null]
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.jsm
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+console.error: "Error during quit-application-granted: [Exception... \"File error: Not found\"  nsresult: \"0x80520012 (NS_ERROR_FILE_NOT_FOUND)\"  location: \"JS frame :: resource:///modules/BrowserGlue.jsm :: _onQuitApplicationGranted/tasks< :: line 1996\"  data: no]"
+1682344652325	Marionette	INFO	Stopped listening on port 43479
+1682344715426	geckodriver	INFO	Listening on 127.0.0.1:47453
+1682344717496	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/usr ... =3" "--remote-debugging-port" "56333" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofile7uhTUx"
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+1682344717936	Marionette	INFO	Marionette enabled
+1682344717939	Marionette	INFO	Listening on port 43137
+WebDriver BiDi listening on ws://localhost:56333
+ATTENTION: default value of option mesa_glthread overridden by environment.
+Read port: 43137
+1682344718543	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofile7uhTUx/search.json.mozlz4", (void 0)))
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.jsm
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+DevTools listening on ws://localhost:56333/devtools/browser/2bd1787b-0fa6-4e9c-a1b4-7c75670bb962
+JavaScript error: https://twitter.com/search?q=(to%3AMasterCode112)%20until%3A2023-01-02%20since%3A2023-01-01%20&src=typed_query&f=live, line 155: ChunkLoadError: Loading chunk shared~ondemand.EmojiPickerData~ondemand.ParticipantReaction~ondemand.EmojiPicker failed.
+(error: https://abs.twimg.com/responsive-web/client-web-legacy/shared~ondemand.EmojiPickerData~ondemand.ParticipantReaction~ondemand.EmojiPicker.10f3ca2a.js)
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://accounts.google.com"
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+1682344876254	geckodriver	INFO	Listening on 127.0.0.1:33107
+1682344878290	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/usr ... =3" "--remote-debugging-port" "58491" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileh4cjSD"
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+1682344878736	Marionette	INFO	Marionette enabled
+1682344878738	Marionette	INFO	Listening on port 41345
+WebDriver BiDi listening on ws://localhost:58491
+ATTENTION: default value of option mesa_glthread overridden by environment.
+Read port: 41345
+1682344879208	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileh4cjSD/search.json.mozlz4", (void 0)))
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.jsm
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+DevTools listening on ws://localhost:58491/devtools/browser/31140cfe-1974-4029-8655-5e8351a0f656
+JavaScript error: https://twitter.com/search?q=(to%3AMasterCode112)%20until%3A2023-01-01%20since%3A2022-12-31%20&src=typed_query&f=live, line 155: ChunkLoadError: Loading chunk i18n/emoji-en failed.
+(error: https://abs.twimg.com/responsive-web/client-web-legacy/i18n/emoji-en.9523b2aa.js)
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://accounts.google.com"
+JavaScript warning: https://accounts.google.com/v3/signin/identifier?dsh=S755091190%3A1682344897546165&continue=https%3A%2F%2Faccounts.google.com%2Fgsi%2Fselect%3Fclient_id%3D49625052041-kgt0hghf445lmcmhijv46b715m2mpbct.apps.googleusercontent.com%26ux_mode%3Dpopup%26ui_mode%3Dcard%26as%3DIBE2Q6K5Z0olVNaXTVipmA%26channel_id%3Db8d09d5e103b532d9f5ef63cb93d911bb4d1b8e2bfcc4037ad45c71b9561830e%26origin%3Dhttps%3A%2F%2Ftwitter.com&faa=1&ifkv=AQMjQ7SQ-axNFtSA4J0cQbcVWE11W_BI6YOOZzxb33vuG-lLHXpUlmnz7iRrBuUl1eRNpSAhLe4ieA&flowName=GlifWebSignIn&flowEntry=ServiceLogin line 205 > injectedScript line 2 > eval line 4720 > eval line 1 > eval line 1 > eval, line 1: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://accounts.google.com"
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://accounts.google.com"
+JavaScript warning: https://accounts.google.com/v3/signin/identifier?dsh=S755091190%3A1682344897546165&continue=https%3A%2F%2Faccounts.google.com%2Fgsi%2Fselect%3Fclient_id%3D49625052041-kgt0hghf445lmcmhijv46b715m2mpbct.apps.googleusercontent.com%26ux_mode%3Dpopup%26ui_mode%3Dcard%26as%3DIBE2Q6K5Z0olVNaXTVipmA%26channel_id%3Db8d09d5e103b532d9f5ef63cb93d911bb4d1b8e2bfcc4037ad45c71b9561830e%26origin%3Dhttps%3A%2F%2Ftwitter.com&faa=1&flowEntry=ServiceLogin&flowName=GlifWebSignIn&ifkv=AQMjQ7QIFIsQakiKvccsdBw-7G56urCA_P4EvTB4WUOXi1h8FwjllJngiNZYJ2EjJHmjIFsObBP7 line 205 > injectedScript line 2 > eval line 361 > eval line 1 > eval line 1 > eval, line 1: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://accounts.google.com"
+[GFX1-]: Unrecognized feature ACCELERATED_CANVAS2D
+1682345489473	geckodriver	INFO	Listening on 127.0.0.1:57375
+1682345491537	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/usr ... =3" "--remote-debugging-port" "42001" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileJ47BwV"
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+1682345491980	Marionette	INFO	Marionette enabled
+1682345491983	Marionette	INFO	Listening on port 33179
+WebDriver BiDi listening on ws://localhost:42001
+ATTENTION: default value of option mesa_glthread overridden by environment.
+Read port: 33179
+1682345492497	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileJ47BwV/search.json.mozlz4", (void 0)))
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.jsm
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+DevTools listening on ws://localhost:42001/devtools/browser/0b0b3e44-b1f1-4cd9-ba87-fcd02da6e15a
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.jsm
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+console.error: "Error during quit-application-granted: [Exception... \"File error: Not found\"  nsresult: \"0x80520012 (NS_ERROR_FILE_NOT_FOUND)\"  location: \"JS frame :: resource:///modules/BrowserGlue.jsm :: _onQuitApplicationGranted/tasks< :: line 1996\"  data: no]"
+1682345516345	Marionette	INFO	Stopped listening on port 33179
+1682345517087	geckodriver::marionette	ERROR	Failed to close browser connection: Socket not connected (os error 107)
+[2023-04-24T14:11:57Z ERROR glean] Can't persist ping lifetime data: Error { kind: Rkv(IoError(Os { code: 2, kind: NotFound, message: "No such file or directory" })) }
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.jsm
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+console.error: "Error during quit-application-granted: [Exception... \"File error: Not found\"  nsresult: \"0x80520012 (NS_ERROR_FILE_NOT_FOUND)\"  location: \"JS frame :: resource:///modules/BrowserGlue.jsm :: _onQuitApplicationGranted/tasks< :: line 1996\"  data: no]"
+1682345530662	Marionette	INFO	Stopped listening on port 41345

@@ -56,7 +56,7 @@ def get_data(card, save_images=False, save_dir=None):
     except:
         embedded = ""
 
-    # text = comment + embedded
+    text = comment + embedded
 
     try:
         reply_cnt = card.find_element(by=By.XPATH, value='.//div[@data-testid="reply"]').text
@@ -80,11 +80,11 @@ def get_data(card, save_images=False, save_dir=None):
     except:
         image_links = []
 
-    # if save_images == True:
-    #	for image_url in image_links:
-    #		save_image(image_url, image_url, save_dir)
-    # handle promoted tweets
+    if save_images == True:
+    	for image_url in image_links:
+    		save_image(image_url, image_url, save_dir)
 
+    # handle promoted tweets
     try:
         promoted = card.find_element(by=By.XPATH, value='.//div[2]/div[2]/[last()]//span').text == "Promoted"
     except:
@@ -267,7 +267,6 @@ def log_in(driver, env, timeout=20, wait=4):
     password_el.send_keys(Keys.RETURN)
     sleep(random.uniform(wait, wait + 1))
 
-
 def keep_scroling(driver, data, writer, tweet_ids, scrolling, tweet_parsed, limit, scroll, last_position,
                   save_images=False):
     """ scrolling function for tweets crawling"""
@@ -325,7 +324,7 @@ def get_users_follow(users, headless, env, follow=None, verbose=1, wait=2, limit
     driver = init_driver(headless=headless, env=env, firefox=True)
     sleep(wait)
     # log in (the .env file should contain the username and password)
-    # driver.get('https://www.twitter.com/login')
+    driver.get('https://www.twitter.com/login')
     log_in(driver, env, wait=wait)
     sleep(wait)
     # followers and following dict of each user
