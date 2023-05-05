@@ -5,6 +5,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, logout, login
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_http_methods
+import os
+import csv
 
 def Login(request):
     return render(request, 'login.html')
@@ -20,6 +22,26 @@ def index(request):
 @login_required
 def User_Profile(request):
     return render(request, 'Admin/users_profile.html')
+
+@login_required
+def Twitter_scrapper(request):
+    # file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'messagaes.txt')
+    with open("Twitter/Scrapper_Bot_Twitter/Scrapper_Boot_Twitter/messagaes.txt") as f:
+        message = f.read()
+    context = {'messages' : message}
+    return render(request, "Admin/Twitter-Scrapper.html", context)
+
+@login_required
+def Result_Scrapping_CSV(request):
+    with open('Twitter/Scrapper_Bot_Twitter/Scrapper_Boot_Twitter/outputs/my_name_tanzania_uganda_2022-02-02_2023-04-03.csv', 'r') as f:
+        reader = csv.DictReader(f)
+        csv_data = [row for row in reader]
+    context = {'csv_data': csv_data}
+    return render(request, "Admin/Result_CSV.html", context)
+
+@login_required
+def Scrapping_Operation(request):
+    return render(request, 'Admin/Scrapping_Operation.html')
 
 @require_http_methods(['POST'])
 def create_account(request):

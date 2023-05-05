@@ -1,6 +1,6 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
-from .views import Login, register, create_account, login_view, index, User_Profile
+from .views import Login, register, create_account, login_view, index, User_Profile, Twitter_scrapper, Result_Scrapping_CSV, Scrapping_Operation
 
 
 urlpatterns = [
@@ -11,4 +11,7 @@ urlpatterns = [
     path('Home/', index, name="index"),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('Profile/', User_Profile, name="profile"),
+    path('TwitterScrapper/', Twitter_scrapper, name="TwitterScrapper"),
+    path('Result_SCV/', Result_Scrapping_CSV, name="Result_CSV"),
+    path('Operation/', Scrapping_Operation, name='Operation'),
 ]
