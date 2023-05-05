@@ -1,0 +1,5 @@
+chromedriver-autoinstaller
+pandas
+python-dotenv
+selenium
+urllib3

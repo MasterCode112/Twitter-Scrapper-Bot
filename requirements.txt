@@ -1,2 +1,12 @@
+<<<<<<< HEAD
 mysqlclient==1.3.5
 pymysql
+=======
+certifi
+selenium==4.2.0
+pandas
+python-dotenv
+chromedriver-autoinstaller
+geckodriver-autoinstaller
+urllib3
+>>>>>>> 3c97df3a2d6521b7a8e06696a33e90f34d39e2ca

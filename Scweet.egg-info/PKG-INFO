@@ -1,7 +1,26 @@
-<<<<<<< HEAD
-# Twitter-Scrapper-Boot
-Boot for Scrapping data from twitter include tweet text, embeded tex, username, handle name,download images, image link, tweet url, imojes, comments, and other many things
-=======
+Metadata-Version: 2.1
+Name: Scweet
+Version: 1.8
+Summary: Tool for scraping Tweets
+Home-page: https://github.com/Altimis/Scweet
+Download-URL: https://github.com/Altimis/Scweet/archive/v0.3.0.tar.gz
+Author: David Godbless Tenga
+Author-email: aitjeddiyassine@gmail.com
+License: MIT
+Keywords: twitter,scraper,python,crawl,following,followers,twitter-scraper,tweets
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Build Tools
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.4
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Description-Content-Type: text/markdown
+
+
 
 
 # A simple and unlimited Twitter scraper with python.
@@ -145,4 +164,3 @@ optional arguments:
 
 ### To run the script :
 `python scrapper_boot.py --words "Challenge//CTF" --to_account "MasterCode112"  --until 2020-01-05 --since 2020-01-01 --limit 10 --interval 1 --display_type Latest --lang="en" --headless True`
->>>>>>> 3c97df3a2d6521b7a8e06696a33e90f34d39e2ca
