@@ -7,6 +7,10 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_http_methods
 import os
 import csv
+from subprocess import Popen, PIPE
+import logging
+from Twitter.Nitter.Scrapper_Boot_Twitter import scrapper_boot
+
 
 def Login(request):
     return render(request, 'login.html')
@@ -26,14 +30,14 @@ def User_Profile(request):
 @login_required
 def Twitter_scrapper(request):
     # file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'messagaes.txt')
-    with open("Twitter/Scrapper_Bot_Twitter/Scrapper_Boot_Twitter/messagaes.txt") as f:
+    with open("Twitter/Nitter/Scrapper_Boot_Twitter/messagaes.txt") as f:
         message = f.read()
     context = {'messages' : message}
     return render(request, "Admin/Twitter-Scrapper.html", context)
 
 @login_required
 def Result_Scrapping_CSV(request):
-    with open('Twitter/Scrapper_Bot_Twitter/Scrapper_Boot_Twitter/outputs/my_name_tanzania_uganda_2022-02-02_2023-04-03.csv', 'r') as f:
+    with open('Twitter/Nitter/Scrapper_Boot_Twitter/outputs/my_name_tanzania_uganda_2022-02-02_2023-04-03.csv', 'r') as f:
         reader = csv.DictReader(f)
         csv_data = [row for row in reader]
     context = {'csv_data': csv_data}
@@ -41,7 +45,23 @@ def Result_Scrapping_CSV(request):
 
 @login_required
 def Scrapping_Operation(request):
-    return render(request, 'Admin/Scrapping_Operation.html')
+    # logger.info("Starting scraping operation....")
+    # try:
+    #     # Run the script and capture the output
+    #     process = Popen(['python3', 'Twitter/Nitter/Scrapper_Boot_Twitter/scrapper_boot.py', '--since', '2023-05-03'], stdout=PIPE, stderr=PIPE)
+    #     stdout, stderr = process.communicate()
+    #     # Decode the output from bytes to string
+    #     output = stdout.decode('utf-8')
+    #     context = {'scraping_operation':output}
+    #     logger.info("Scrapping operation completed successfully.")
+    # except subprocess.CalledProcessError as e:
+    #     logger.error(f"Scrapping operation failed: {e}")
+    #     context = {'error_message': f"Scraping operation failed: {e}"}
+    since = '2023-04-03'
+    scrapper_boot.scrape(since=since, words='Tanzani', headless=False)
+    data = scrapper_boot.scrape(since=since, words='Tanzani', headless=False)
+    context = {'error_message' : data}
+    return render(request, 'Admin/Scrapping_Operation.html', context)
 
 @require_http_methods(['POST'])
 def create_account(request):
