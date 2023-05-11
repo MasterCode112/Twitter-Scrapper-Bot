@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 import uuid
+from django.contrib.auth.models import User
 
 class Auth_users(models.Model):
     Primary_key = models.AutoField(primary_key=True, unique=True, null=False)
@@ -151,3 +152,14 @@ class Result_Output(models.Model):
 
     def __str__(self):
         return "{}".format(self.Primary_key)
+
+
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    country = models.CharField(max_length=50)
+    address = models.CharField(max_length=50)
+    phone = models.CharField(max_length=20)  
+
+    def __str__(self):
+        return "{}".format(self.pk)

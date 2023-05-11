@@ -9,6 +9,7 @@ import os
 import csv
 from subprocess import Popen, PIPE
 import logging
+from .models import UserProfile
 from Twitter.Nitter.Scrapper_Boot_Twitter import scrapper_boot
 
 
@@ -45,23 +46,19 @@ def Result_Scrapping_CSV(request):
 
 @login_required
 def Scrapping_Operation(request):
-    # logger.info("Starting scraping operation....")
-    # try:
-    #     # Run the script and capture the output
-    #     process = Popen(['python3', 'Twitter/Nitter/Scrapper_Boot_Twitter/scrapper_boot.py', '--since', '2023-05-03'], stdout=PIPE, stderr=PIPE)
-    #     stdout, stderr = process.communicate()
-    #     # Decode the output from bytes to string
-    #     output = stdout.decode('utf-8')
-    #     context = {'scraping_operation':output}
-    #     logger.info("Scrapping operation completed successfully.")
-    # except subprocess.CalledProcessError as e:
-    #     logger.error(f"Scrapping operation failed: {e}")
-    #     context = {'error_message': f"Scraping operation failed: {e}"}
     since = '2023-04-03'
-    scrapper_boot.scrape(since=since, words='Tanzani', headless=False)
-    data = scrapper_boot.scrape(since=since, words='Tanzani', headless=False)
+    data = "Twitter/Nitter/Scrapper_Boot_Twitter/messagaes.txt"
+
+    if data is not None:
+        with open(data, 'r') as f:
+            words = f.read().strip().split('//')
+    else:
+        words = data.strip().split('//')
+
+    scrapper_boot.scrape(since=since, words=words, headless=False)
+    data = scrapper_boot.scrape(since=since, words=words,  headless=False)
     context = {'error_message' : data}
-    return render(request, 'Admin/Scrapping_Operation.html', context)
+    return render(request, 'Admin/Scrapping_Operation.html')
 
 @require_http_methods(['POST'])
 def create_account(request):
@@ -104,6 +101,50 @@ def login_view(request):
             return redirect('../Home')
         else:
             messages.error(request, 'Invalid username or password.')
-            return redirect("../")
+            return redirect("login")
 
     return render(request, 'login.html')
+
+def UserProfileUpdate(request):
+    user = request.user
+    try:
+        profile = user.userprofile
+    except UserProfile.DoesNotExist:
+        profile = UserProfile(user=user)
+
+    if request.method == 'POST':
+        user.first_name = request.POST['first_name']
+        user.last_name = request.POST['last_name']
+        user.username = request.POST['username']
+        user.email = request.POST['email']
+        user.save()
+
+        profile.country = request.POST['country']
+        profile.address = request.POST['address']
+        profile.phone = request.POST['phone']
+        profile.save()
+        
+        if user and profile:
+            messages.success(request, 'Profile updated successfully!')
+        else:
+            messages.error(request, 'Error updating profile')
+        return redirect('../Profile')
+    else:
+        context = {'profile' : profile}
+        return render(request, 'users_profile.html', context)
+
+
+def ChangePassword(request):
+    user = request.user
+    if request.method == "POST":
+        current_password = request.POST['currentPassword']
+        password = request.POST['newPassword']
+        if user.check_password(current_password):
+            user.set_password(password)
+            user.save()
+            messages.success(request, 'Password updated successfully login again!')
+        else:
+            messages.error(request, 'Current password is incorrect.')
+    return redirect('../')
+
+

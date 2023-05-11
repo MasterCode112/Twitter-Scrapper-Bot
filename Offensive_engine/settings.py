@@ -141,3 +141,4 @@ LOGOUT_REDIRECT_URL = '/Twitter/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
