@@ -259,3 +259,27 @@ def default_scraping(request):
     except D_Settings.DoesNotExist:
         # handle case where the user has no settings yet
         pass
+
+def dictionary_management(request):
+    file_path = "Twitter/Nitter/Scrapper_Boot_Twitter/messagaes.txt"
+
+    with open(file_path) as f:
+        message = f.read()
+        
+    context = {"messages": message }
+    
+    if request.method == "POST":
+        dictionary = request.POST.get('Dictionary')
+        if dictionary:
+            try:
+                with open(file_path, 'w') as f:
+                    f.write(dictionary)
+                context['success'] = "The word was changes successfully!"
+                return redirect('dictionary_management')
+            except Exception as e:
+                context['error'] = "There was an error adding the word." + str(e)
+                # print(e)
+        else:
+            context['error'] = "Please enter a word to add."
+        
+    return render(request, "Admin/ManageDictionaries.html", context)
