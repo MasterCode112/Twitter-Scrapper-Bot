@@ -12,7 +12,7 @@ from .utils import init_driver, get_last_date_from_csv, log_search_page, keep_sc
 
 def scrape(since, until=None, words=None, to_account=None, from_account=None, mention_account=None, interval=5, lang=None,
           headless=True, limit=float("inf"), display_type="Top", resume=False, proxy=None, hashtag=None, 
-          show_images=True, save_images=True, save_dir="outputs", filter_replies=False, proximity=False, 
+          show_images=True, save_images=False, save_dir="outputs", filter_replies=False, proximity=False, 
           geocode=None, minreplies=None, minlikes=None, minretweets=None):
     """
     scrape data from twitter using requests, starting from <since> until <until>. The program make a search between each <since> and <until_local>
@@ -26,7 +26,7 @@ def scrape(since, until=None, words=None, to_account=None, from_account=None, me
     # ------------------------- Variables :
     # header of csv
     header = ['UserName', 'Handle&Toxic', 'Timestamp', 'Text', 'Embedded_text', 'Emojis', 'Comments', 'Likes', 'Retweets',
-                  'Image link', 'Tweet URL']
+                  'Image_link', 'Tweet_URL']
     # list that contains all data
     data = []
     # unique tweet ids
@@ -136,8 +136,8 @@ def scrape(since, until=None, words=None, to_account=None, from_account=None, me
             else:
                 until_local = until_local + datetime.timedelta(days=interval)
 
-    data = pd.DataFrame(data, columns = ['UserName', 'Handle&Toxic', 'Timestamp', 'Text', 'Embedded_text', 'Emojis', 
-                              'Comments', 'Likes', 'Retweets','Image link', 'Tweet URL'])
+    data = pd.DataFrame(data, columns = ['UserName', 'Toxic', 'Timestamp', 'Text', 'Embedded_text', 'Emojis', 
+                              'Comments', 'Likes', 'Retweets','Image_link', 'Tweet_URL'])
 
     # save images
     if save_images==True:
@@ -158,9 +158,9 @@ if __name__ == '__main__':
 
     # parser.add_argument('--words', type=str,
     #                     help='Queries. they should be devided by "//" : Cat//Dog.', default=None)
-    parser.add_argument('--data', type=str, help='Queries. they should be divided by "//" : Cat//Dog.', default='messagaes.txt',
-                    metavar='file_path', dest='queries_file',
-                    nargs='?', const='messagaes.txt')
+    # parser.add_argument('--data', type=str, help='Queries. they should be divided by "//" : Cat//Dog.', default='messagaes.txt',
+    #                 metavar='file_path', dest='queries_file',
+    #                 nargs='?', const='messagaes.txt')
     parser.add_argument('--from_account', type=str,
                         help='Tweets from this account (example : @Tesla).', default=None)
     parser.add_argument('--to_account', type=str,
@@ -200,12 +200,13 @@ if __name__ == '__main__':
                         help='Min. number of retweets to the tweet', default=None)
 
 
+    data = "messagaes.txt"
     args = parser.parse_args()
-    if args.queries_file is not None:
-        with open(args.queries_file, 'r') as f:
+    if data is not None:
+        with open(data, 'r') as f:
             words = f.read().strip().split('//')
     else:
-        words = args.data.strip().split('//')
+        words = data.strip().split('//')
     # words = args.words
     until = args.until
     since = args.since

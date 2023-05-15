@@ -1,3 +1,10 @@
+{% if not user.is_authenticated %}
+<script type="text/javascript">
+  alert("You are not authorized to access this page login first!!");
+  window.location.replace("{% url 'login' %}");
+</script>
+{% endif %}
+
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -26,7 +33,9 @@
   <link href="{% static 'assets/vendor/quill/quill.bubble.css' %}" rel="stylesheet">
   <link href="{% static 'assets/vendor/remixicon/remixicon.css' %}" rel="stylesheet">
   <link href="{% static 'assets/vendor/simple-datatables/style.css' %}" rel="stylesheet">
-
+  <script
+  src="https://unpkg.com/vue@3/dist/vue.global.js">
+  </script>
   <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
 </head>
 
@@ -358,6 +367,29 @@
                   <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Change Password</button>
                 </li>
 
+                <li class="nav-item">
+                  {% if messages %}
+                  {% for message in messages %}
+                    {% if message.tags == "error" %}
+                      {% with "danger" as new %}
+                        <div class="alert alert-{{ new }} alert-dismissible fade show" role="alert">
+                          {{ message }}
+                          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                      {% endwith %}
+                    {% elif message.tags == "success" %}
+                      {% with "success" as new %}
+                        <div class="alert alert-{{ new }} alert-dismissible fade show" role="alert">
+                          {{ message }}
+                          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                      {% endwith %}
+                    {% endif %}
+                  {% endfor %}
+                {% endif %}  
+                <div class="danger">{{ context }}</div>
+                </li>
+
               </ul>
               <div class="tab-content pt-2">
 
@@ -379,17 +411,17 @@
 
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label">Country</div>
-                    <div class="col-lg-9 col-md-8">Tanzania</div>
+                    <div class="col-lg-9 col-md-8">{{ request.user.userprofile.country }}</div>
                   </div>
 
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label">Address</div>
-                    <div class="col-lg-9 col-md-8">Dodoma</div>
+                    <div class="col-lg-9 col-md-8">{{ request.user.userprofile.address }}</div>
                   </div>
 
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label">Phone</div>
-                    <div class="col-lg-9 col-md-8">+255625693429</div>
+                    <div class="col-lg-9 col-md-8">{{ request.user.userprofile.phone }}</div>
                   </div>
 
                   <div class="row">
@@ -402,7 +434,8 @@
                 <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 
                   <!-- Profile Edit Form -->
-                  <form>
+                  <form action="{% url 'update_user' %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
                     <div class="row mb-3">
                       <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
                       <div class="col-md-8 col-lg-9">
@@ -417,21 +450,21 @@
                     <div class="row mb-3">
                       <label for="fullName" class="col-md-4 col-lg-3 col-form-label">First Name</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="fullName" type="text" class="form-control" id="fullName" name="first_name" value="{{request.user.first_name }}">
+                        <input type="text" class="form-control" id="fullName" name="first_name" value="{{request.user.first_name }}">
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Last Name</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="fullName" type="text" class="form-control" id="fullName" name="last_name" value="{{ request.user.last_name }}">
+                        <input  type="text" class="form-control" id="fullName" name="last_name" value="{{ request.user.last_name }}">
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="company" class="col-md-4 col-lg-3 col-form-label">UserName</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="company" type="text" class="form-control" id="company" name="username" value="{{ request.user.username }}">
+                        <input  type="text" class="form-control" id="company" name="username" value="{{ request.user.username }}">
                       </div>
                     </div>
 
@@ -439,21 +472,21 @@
                     <div class="row mb-3">
                       <label for="Country" class="col-md-4 col-lg-3 col-form-label">Country</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="country" type="text" class="form-control" id="Country" value="Tanzania">
+                        <input name="country" type="text" class="form-control" id="Country" value="{{ request.user.userprofile.country }}">
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="Address" class="col-md-4 col-lg-3 col-form-label">Address</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="address" type="text" class="form-control" id="Address" value="Dodoma">
+                        <input name="address" type="text" class="form-control" id="Address" value="{{ request.user.userprofile.address }}">
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="phone" type="text" class="form-control" id="Phone" value="+255625693429">
+                        <input name="phone" type="text" class="form-control" id="Phone" value="{{ request.user.userprofile.phone }}">
                       </div>
                     </div>
 
@@ -487,12 +520,6 @@
                           </label>
                         </div>
                         <div class="form-check">
-                          <input class="form-check-input" type="checkbox" id="newProducts" checked>
-                          <label class="form-check-label" for="newProducts">
-                            Information on new products and services
-                          </label>
-                        </div>
-                        <div class="form-check">
                           <input class="form-check-input" type="checkbox" id="securityNotify" checked disabled>
                           <label class="form-check-label" for="securityNotify">
                             Security alerts
@@ -510,26 +537,26 @@
 
                 <div class="tab-pane fade pt-3" id="profile-change-password">
                   <!-- Change Password Form -->
-                  <form>
-
+                  <form action="{% url 'changepassword' %}" method="POSt" @submit="handleSubmit"  enctype="multipart/form-data" >
+                     {% csrf_token %}
                     <div class="row mb-3">
                       <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="password" type="password" class="form-control" id="currentPassword" name="currentPassword">
+                        <input type="password" class="form-control" id="currentPassword" name="currentPassword" v-model="currentPassword">
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="newpassword" type="password" class="form-control" id="newPassword" name="newPassword">
+                        <input type="password" class="form-control" id="newPassword" name="newPassword" v-model="newPassword">
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="renewpassword" type="password" class="form-control" id="renewPassword" name="renewPassword">
+                        <input type="password" class="form-control" id="renewPassword" name="renewPassword" v-model="renewPassword">
                       </div>
                     </div>
 
@@ -537,7 +564,12 @@
                       <button type="submit" class="btn btn-primary">Change Password</button>
                     </div>
                   </form><!-- End Change Password Form -->
-
+                  <div v-if="errors.length > 0" class="alert alert-danger">
+                    <ul>
+                      <li v-for="error in errors" v-html="error"></li>
+                    </ul>
+                  </div>                  
+                  
                 </div>
 
               </div><!-- End Bordered Tabs -->
@@ -578,3 +610,41 @@
 </body>
 
 </html>
+
+<script type="text/javascript">
+  // initialize Vue app
+  const app = Vue.createApp({
+    data() {
+      return {
+        currentPassword: '',
+        newPassword: '',
+        renewPassword: '',
+        errors: []
+      }
+    },
+    methods: {
+      handleSubmit(event) {
+      event.preventDefault();
+        this.errors = [];
+        if (!this.currentPassword) {
+          this.errors.push('Current Password is required.');
+        }
+        if (!this.newPassword) {
+          this.errors.push('New Password is required.');
+        }
+        if (!this.renewPassword) {
+          this.errors.push('Re-enter New Password is required.');
+        }
+        if (this.newPassword !== this.renewPassword) {
+          this.errors.push('New Password and Re-enter New Password must match.');
+        }
+        if (this.errors.length === 0) {
+          event.target.submit();
+        }
+        return false;
+      }
+    }
+  });
+  app.mount("#profile-change-password");
+  
+</script>
