@@ -6,15 +6,7 @@ import sys
 
 def main():
     """Run administrative tasks."""
-<<<<<<< HEAD
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'offensive_engine.settings')
-=======
-<<<<<<< HEAD
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Offensive_engine.settings')
-=======
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'officensive_engine.settings')
->>>>>>> refs/remotes/origin/main
->>>>>>> refs/remotes/origin/main
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
