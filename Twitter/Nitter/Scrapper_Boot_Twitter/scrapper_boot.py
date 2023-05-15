@@ -26,7 +26,7 @@ def scrape(since, until=None, words=None, to_account=None, from_account=None, me
     # ------------------------- Variables :
     # header of csv
     header = ['UserName', 'Handle&Toxic', 'Timestamp', 'Text', 'Embedded_text', 'Emojis', 'Comments', 'Likes', 'Retweets',
-                  'Image link', 'Tweet URL']
+                  'Image_link', 'Tweet_URL']
     # list that contains all data
     data = []
     # unique tweet ids
@@ -136,8 +136,8 @@ def scrape(since, until=None, words=None, to_account=None, from_account=None, me
             else:
                 until_local = until_local + datetime.timedelta(days=interval)
 
-    data = pd.DataFrame(data, columns = ['UserName', 'Handle&Toxic', 'Timestamp', 'Text', 'Embedded_text', 'Emojis', 
-                              'Comments', 'Likes', 'Retweets','Image link', 'Tweet URL'])
+    data = pd.DataFrame(data, columns = ['UserName', 'Toxic', 'Timestamp', 'Text', 'Embedded_text', 'Emojis', 
+                              'Comments', 'Likes', 'Retweets','Image_link', 'Tweet_URL'])
 
     # save images
     if save_images==True:

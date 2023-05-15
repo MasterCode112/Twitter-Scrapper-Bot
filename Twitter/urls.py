@@ -1,6 +1,6 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
-from .views import Login, register, create_account, login_view, enable_scrapping, index, User_Profile, Twitter_scrapper, Result_Scrapping_CSV, Scrapping_Operation, UserProfileUpdate, ChangePassword
+from .views import Login, register, create_account, login_view, open_file, enable_scrapping, index, User_Profile, Twitter_scrapper, Result_Scrapping_CSV, Scrapping_Operation, UserProfileUpdate, ChangePassword
 
 
 urlpatterns = [
@@ -16,5 +16,6 @@ urlpatterns = [
     path('Operation/', Scrapping_Operation, name='Operation'),
     path('update_user/', UserProfileUpdate, name='update_user'),
     path('changepassword/', ChangePassword, name='changepassword'),
-    path('enabled', enable_scrapping, name="enabled")
+    path('enabled', enable_scrapping, name="enabled"),
+    path('open_file/', open_file, name='open_file'),
 ]

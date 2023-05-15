@@ -84,32 +84,47 @@ def Twitter_scrapper(request):
 
 
 # def Result_Scrapping_CSV(request):
-#     with open('Twitter/Nitter/Scrapper_Boot_Twitter/outputs/my_name_tanzania_uganda_2022-02-02_2023-04-03.csv', 'r') as f:
-#         reader = csv.DictReader(f)
-#         csv_data = [row for row in reader]
-#     context = {'csv_data': csv_data}
-#     return render(request, "Admin/Result_CSV.html", context)
+    with open('Twitter/Nitter/Scrapper_Boot_Twitter/outputs/my_name_tanzania_uganda_2022-02-02_2023-04-03.csv', 'r') as f:
+        reader = csv.DictReader(f)
+        csv_data = [row for row in reader]
+    context = {'csv_data': csv_data}
+    return render(request, "Admin/Result_CSV.html", context)
 
 @never_cache
 def Result_Scrapping_CSV(request):
     directory = 'Twitter/Nitter/Scrapper_Boot_Twitter/outputs'
     files = os.listdir(directory)
     file_links = []
+    latest_file = None
     for file in files:
         file_path = os.path.join(directory, file)
         if os.path.isfile(file_path):
-            file_links.append({
-                'name': file,
+            file_link = {
                 'link': f'{directory}/{file}',
-            })
-    context = {'file_links': file_links}
+                'modified': os.path.getmtime(file_path),
+            }
+            if latest_file is None or file_link['modified'] > latest_file['modified']:
+                latest_file = file_link
+            file_links.append(file_link)
+    csv_data = None
+    if latest_file is not None:
+        with open(latest_file['link'], 'r') as f:
+            reader = csv.DictReader(f)
+            csv_data = [row for row in reader]
+    context = {
+        'csv_data': csv_data,
+        'file_links': file_links,
+        'latest_file': latest_file,
+    }
     return render(request, 'Admin/Result_CSV.html', context)
 
 def open_file(request, file_name):
     file_path = os.path.join('Twitter/Nitter/Scrapper_Boot_Twitter/outputs', file_name)
     with open(file_path, 'r') as f:
-        content = f.read()
-    return HttpResponse(content, content_type='text/csv')
+        reader = csv.DictReader(f)
+        csv_data = [row for row in reader]
+    context = {'csv_data': csv_data}
+    return render(request, "Admin/Result_CSV.html", context)
 
 
 @never_cache

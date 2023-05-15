@@ -320,23 +320,19 @@
         </ol>
       </nav>
     </div><!-- End Page Title -->
-
-    <section class="section profile">
-      <div class="row">
-
-        <div class="col-xl-1">
-          {% for file in files %}
-            <a href="{{ link }}">{{ file }}</a>
-          {% endfor %}
-        </div>
-        
-        <script>
-          function openFile(file) {
-            window.open(open_file(file));
-          }
-        </script>
-        
-        
+    <div class="row">
+      
+      <div class="col-xl-1">
+        {% for file in file_links %}
+          {% if latest_file and file.modified == latest_file.modified %}
+            <a href="{{ file.link }}">{{ file.modified }}</a>
+          {% else %}
+            <a href="#" onclick="openFile('{{ file.name }}')">{{ file.name }}</a>
+          {% endif %}
+        {% endfor %}
+      </div>
+      
+                
               <!-- Dark Table -->
               <div class="table-responsive col-xl-10">
               <table class="table table-success table-striped table-hover">
@@ -344,7 +340,7 @@
                   <tr>
                     <th scope="col">#</th>
                     <th scope="col">Username</th>
-                    <th scope="col">Handles</th>
+                    <th scope="col">Toxics</th>
                     <th scope="col">Text</th>
                     <th scope="col">Embedded_text</th>
                     <th scope="col">Emojis</th>
@@ -368,8 +364,8 @@
                     <td>{{ row.Comments }}</td>
                     <td>{{ row.Likes }}</td>
                     <td>{{ row.Retweets }}</td>
-                    <td>{{ row.Image }}</td>
-                    <td>{{ row.Tweet }}</td>
+                    <td><img src="{{ row.Image_link }}"/></td>
+                    <td><a href="{{ row.Tweet_URL }}">Preview</a></td>
                     <td>{{ row.Timestamp }}</td>
                   </tr>
                   {% endfor %}
