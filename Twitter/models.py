@@ -81,8 +81,8 @@ class Auth_users(models.Model):
 
 
 class D_Settings(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     Primary_key = models.AutoField(primary_key=True, unique=True)
-    D_uniq_ID = models.UUIDField(editable=False, default=uuid.uuid4, unique=True)
     from_account = models.CharField(max_length=80, null=True)
     to_account = models.CharField(max_length=80, null=True)
     mention_account = models.TextField(null=True)
@@ -104,13 +104,13 @@ class D_Settings(models.Model):
     Seted_Day = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
-        return "{}".format(selft.Primary_key)
+        return f"{self.user}'s D_Settings ({self.D_uniq_ID})"
 
 
 
 class C_Settings(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     Primary_key = models.AutoField(primary_key=True, null=False, unique=True)
-    C_unique_ID = models.UUIDField(editable=False, default=uuid.uuid4, unique=True)
     from_account = models.CharField(max_length=80, null=True)
     to_account = models.CharField(max_length=80, null=True)
     mention_account = models.TextField(null=True)
@@ -130,13 +130,13 @@ class C_Settings(models.Model):
     minlikes = models.IntegerField(null=True)
     minretweets = models.IntegerField(null=True)
     Seted_Day = models.DateTimeField(default=timezone.now)
+    
 
     def __str__(self):
         return "{}".format(self.Primary_key)
 
 class Result_Output(models.Model):
     Primary_key = models.AutoField(primary_key=True, null=False, unique=True)
-    R_Unique_ID = models.UUIDField(editable=False, default=uuid.uuid4, unique=True)
     FileName = models.CharField(max_length=100, default=None)
     UserScreenName = models.CharField(max_length=100, null=True)
     UserName = models.CharField(max_length=100, null=True)
@@ -149,6 +149,7 @@ class Result_Output(models.Model):
     Retweets = models.IntegerField(null=True)
     Imag_link = models.CharField(max_length=100, null=True)
     Tweet_URL = models.CharField(max_length=100, null=True)
+    
 
     def __str__(self):
         return "{}".format(self.Primary_key)

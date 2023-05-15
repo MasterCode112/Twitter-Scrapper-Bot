@@ -1,3 +1,10 @@
+{% if not user.is_authenticated %}
+<script type="text/javascript">
+  alert("You are not authorized to access this page login first!!");
+  window.location.replace("{% url 'login' %}");
+</script>
+{% endif %}
+
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -356,6 +363,19 @@
                 <li class="nav-item">
                   <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-settings">Settings</button>
                 </li>
+                <li class="nav-item">
+                  {% if success %}
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                          {{ success }}
+                          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% elif danger %}
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                          {{ danger }}
+                          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                   {% endif %}  
+                </li>
 
               </ul>
               <div class="tab-content pt-2">
@@ -404,51 +424,41 @@
                 <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 
                   <!-- Custom Scrapper Settings-->
-                  <form>
-                    <!-- <div class="row mb-3">
-                      <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Update Twitter Image</label>
-                      <div class="col-md-8 col-lg-9">
-                        <img src="{% static 'assets/img/twitter.jpeg' %}" alt="Profile">
-                        <div class="pt-2">
-                          <a href="#" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="bi bi-upload"></i></a>
-                          <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>
-                        </div>
-                      </div>
-                    </div> -->
-
+                  <form action="{% url 'TwitterScrapper' %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
                     <div class="row mb-3">
                       <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Account Type</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="AccountType" type="text" class="form-control" id="AccountType" value="Loading.....">
+                        <input name="AccountType" type="text" class="form-control" id="AccountType" value="loading...!!" disabled />
                       </div>
                     </div>
 
                     <div class="row mb-3">
-                      <label for="about" class="col-md-4 col-lg-3 col-form-label">Targeted Account/List Of Account</label>
+                      <label for="about" class="col-md-4 col-lg-3 col-form-label">List Of Account</label>
                       <div class="col-md-8 col-lg-9">
-                        <textarea name="TargetedAccount" class="form-control" id="TargetedAccount" style="height: 100px">{{ request.C_Settings.mention_account }}</textarea>
+                        <textarea name="TargetedAccount" class="form-control" id="TargetedAccount" style="height: 100px">{{ mention_account }}</textarea>
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="company" class="col-md-4 col-lg-3 col-form-label">From Account</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="FromAccount" type="text" class="form-control" id="FromAccount" value="{{ request.C_Settings.from_account }}">
+                        <input name="FromAccount" type="text" class="form-control" id="FromAccount" value="{{ from_account }}">
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="company" class="col-md-4 col-lg-3 col-form-label">To Account</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="ToAccount" type="text" class="form-control" id="ToAccount" value="{{ request.C_Settings.to_account }}">
+                        <input name="ToAccount" type="text" class="form-control" id="ToAccount" value="{{ to_account }}">
                       </div>
                     </div>
 
 
                     <div class="row mb-3">
-                      <label for="about" class="col-md-4 col-lg-3 col-form-label">Dataset/ Words Lists</label>
+                      <label for="about" class="col-md-4 col-lg-3 col-form-label">Dictionary/ Words Lists</label>
                       <div class="col-md-8 col-lg-9">
-                        <textarea name="TargetedAccount" class="form-control" id="TargetedAccount" style="height: 100px">{{ messages }}</textarea>
+                        <textarea name="Dictionary" class="form-control" id="TargetedAccount" style="height: 100px">{{ messages }}</textarea>
                       </div>
                     </div>
 
@@ -456,7 +466,7 @@
                       <label for="Address" class="col-md-4 col-lg-3 col-form-label">Select Headless Type</label>
                       <div class="col-md-8 col-lg-9">
 	                    <select class="form-select" aria-label="multiple select example" name="Headless" id="Headless">
-                          <option selected>{{ request.C_Settings.headless }}</option>
+                          <option selected>{{ headless }}</option>
 		                      <optgroup label="Select True Of False Default is True Headless">
 		                      <option value="1">True</option>
 		                      <option value="2">False</option>
@@ -468,7 +478,7 @@
                       <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Display Type</label>
                       <div class="col-md-8 col-lg-9">
                         <select class="form-select" aria-label="multiple select example" name="Display_type" id="Display_type">
-                          <option selected>{{ request.C_Settings.display_type }}</option>
+                          <option selected>{{ display_type }}</option>
 		                      <optgroup label="Select Type Od Display Which Will be Scrapped">
 		                      <option value="Top">Top</option>
 		                      <option value="Latest">Latest</option>
@@ -482,14 +492,14 @@
                     <div class="row mb-3">
                       <label for="Email" class="col-md-4 col-lg-3 col-form-label">Interval</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="Interval" type="number" class="form-control" id="Interval" value="{{ request.C_Settings.interval }}">
+                        <input name="Interval" type="number" class="form-control" id="Interval" value="{{ interval }}">
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="Twitter" class="col-md-4 col-lg-3 col-form-label">Proxy</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="proxy" type="text" class="form-control" id="proxy" value="{{ request.C_Settings.display_type }}">
+                        <input name="proxy" type="text" class="form-control" id="proxy" value="{{ display_type }}">
                       </div>
                     </div>
 
@@ -528,10 +538,10 @@
                       </div>
                     </div>
                     </div>
-
+<!-- 
                     <div class="text-center">
                       <button type="submit" class="btn btn-primary">Save Changes</button>
-                    </div>
+                    </div> -->
                   </form><!-- End settings Form -->
 
                 </div>

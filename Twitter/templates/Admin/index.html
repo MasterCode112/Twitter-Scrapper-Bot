@@ -1,3 +1,10 @@
+{% if not user.is_authenticated %}
+<script type="text/javascript">
+  alert("You are not authorized to access this page login first!!");
+  window.location.replace("{% url 'login' %}");
+</script>
+{% else %}
+
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -542,7 +549,7 @@
 
               <div class="activity">
 
-                {% static '     <div class="activity-item d-flex">
+                  <div class="activity-item d-flex">
                   <div class="activite-label">32 min</div>
                   <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
                   <div class="activity-content">
@@ -702,3 +709,5 @@
 </body>
 
 </html>
+
+{%  endif %}

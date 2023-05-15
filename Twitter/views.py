@@ -5,13 +5,14 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, logout, login
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_http_methods
-import os
+import time
 import csv
 from subprocess import Popen, PIPE
 import logging
-from .models import UserProfile
+import os
+from .models import UserProfile, C_Settings
 from Twitter.Nitter.Scrapper_Boot_Twitter import scrapper_boot
-
+from django.views.decorators.cache import never_cache
 
 def Login(request):
     return render(request, 'login.html')
@@ -20,45 +21,140 @@ def Login(request):
 def register(request):
     return render(request, 'register.html')
 
-@login_required
+@never_cache
 def index(request):
     return render(request, './Admin/index.html')
 
-@login_required
+@never_cache
 def User_Profile(request):
     return render(request, 'Admin/users_profile.html')
 
-@login_required
+
 def Twitter_scrapper(request):
     # file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'messagaes.txt')
     with open("Twitter/Nitter/Scrapper_Boot_Twitter/messagaes.txt") as f:
         message = f.read()
     context = {'messages' : message}
+    user = request.user
+    try:
+        custom_settings = C_Settings.objects.get(user=user)
+        context['to_account'] = custom_settings.to_account
+        context['mention_account'] = custom_settings.mention_account
+        context['from_account'] = custom_settings.from_account
+        context['headless'] = custom_settings.headless
+        context['display_type'] = custom_settings.display_type
+        context['interval'] = custom_settings.interval
+        context['proxy'] = custom_settings.proxy
+        # context['']
+    except C_Settings.DoesNotExist:
+        # handle case where the user has no settings yet
+        pass
+    if request.method == "POST":
+        mention_account = request.POST['TargetedAccount']
+        from_account = request.POST['FromAccount']
+        to_account = request.POST['ToAccount']
+        headless = request.POST['Headless']
+        display_type = request.POST['Display_type']
+        interval = request.POST['Interval']
+        proxy = request.POST['proxy']
+
+        try:
+            custom_settings = C_Settings.objects.get(user=user)
+            custom_settings.mention_account = mention_account
+            custom_settings.from_account = from_account
+            custom_settings.to_account = to_account
+            custom_settings.headless = headless
+            custom_settings.display_type = display_type
+            custom_settings.interval = interval
+            custom_settings.proxy = proxy
+            custom_settings.save()
+            if custom_settings:
+                success = "Custom settings updated successfully!"
+                context = {'messages' : message, 'success' : success}
+                return render(request, "Admin/Twitter-Scrapper.html", context)
+        except C_Settings.DoesNotExist:
+            custom_settings = C_Settings(user=user, mention_account=mention_account, from_account=from_account, to_account=to_account, headless=headless, display_type=display_type, interval=interval, proxy=proxy)
+            custom_settings.save()
+            if custom_settings:
+                danger = "Custom settings saving successfully!"
+                context = {'messages' : message, 'success' : danger}
+                return render(request, "Admin/Twitter-Scrapper.html", context)
+
     return render(request, "Admin/Twitter-Scrapper.html", context)
 
-@login_required
-def Result_Scrapping_CSV(request):
+
+# def Result_Scrapping_CSV(request):
     with open('Twitter/Nitter/Scrapper_Boot_Twitter/outputs/my_name_tanzania_uganda_2022-02-02_2023-04-03.csv', 'r') as f:
         reader = csv.DictReader(f)
         csv_data = [row for row in reader]
     context = {'csv_data': csv_data}
     return render(request, "Admin/Result_CSV.html", context)
 
-@login_required
+@never_cache
+def Result_Scrapping_CSV(request):
+    directory = 'Twitter/Nitter/Scrapper_Boot_Twitter/outputs'
+    files = os.listdir(directory)
+    file_links = []
+    latest_file = None
+    for file in files:
+        file_path = os.path.join(directory, file)
+        if os.path.isfile(file_path):
+            file_link = {
+                'link': f'{directory}/{file}',
+                'modified': os.path.getmtime(file_path),
+            }
+            if latest_file is None or file_link['modified'] > latest_file['modified']:
+                latest_file = file_link
+            file_links.append(file_link)
+    csv_data = None
+    if latest_file is not None:
+        with open(latest_file['link'], 'r') as f:
+            reader = csv.DictReader(f)
+            csv_data = [row for row in reader]
+    context = {
+        'csv_data': csv_data,
+        'file_links': file_links,
+        'latest_file': latest_file,
+    }
+    return render(request, 'Admin/Result_CSV.html', context)
+
+def open_file(request, file_name):
+    file_path = os.path.join('Twitter/Nitter/Scrapper_Boot_Twitter/outputs', file_name)
+    with open(file_path, 'r') as f:
+        reader = csv.DictReader(f)
+        csv_data = [row for row in reader]
+    context = {'csv_data': csv_data}
+    return render(request, "Admin/Result_CSV.html", context)
+
+
+@never_cache
 def Scrapping_Operation(request):
-    since = '2023-04-03'
-    data = "Twitter/Nitter/Scrapper_Boot_Twitter/messagaes.txt"
-
-    if data is not None:
-        with open(data, 'r') as f:
-            words = f.read().strip().split('//')
-    else:
-        words = data.strip().split('//')
-
-    scrapper_boot.scrape(since=since, words=words, headless=False)
-    data = scrapper_boot.scrape(since=since, words=words,  headless=False)
-    context = {'error_message' : data}
     return render(request, 'Admin/Scrapping_Operation.html')
+
+def enable_scrapping(request):
+    if request.method == 'POST':
+        since = '2023-05-03'
+        word = "Twitter/Nitter/Scrapper_Boot_Twitter/messagaes.txt"
+
+        if word is not None:
+            with open(word, 'r') as f:
+                words = f.read().strip().split('//')
+        else:
+            words = word.strip().split('//')
+
+        # Start scraping
+        progress = 0
+        while progress < 100:
+            time.sleep(1)
+            progress += 1
+        scrapper_boot.scrape(since=since, words=words, headless=False)
+        data = scrapper_boot.scrape(since=since, words=words, headless=False, save_dir="Twitter/Nitter/Scrapper_Boot_Twitter/outputs/")
+        
+        # Pass data as context variable
+        context = {'progress': progress, 'data': data}
+        
+        # Render template
+        return render(request, 'Admin/Scrapping_Operation.html', context=context)
 
 @require_http_methods(['POST'])
 def create_account(request):
@@ -105,6 +201,7 @@ def login_view(request):
 
     return render(request, 'login.html')
 
+@never_cache
 def UserProfileUpdate(request):
     user = request.user
     try:
@@ -133,7 +230,7 @@ def UserProfileUpdate(request):
         context = {'profile' : profile}
         return render(request, 'users_profile.html', context)
 
-
+@never_cache
 def ChangePassword(request):
     user = request.user
     if request.method == "POST":
@@ -147,4 +244,18 @@ def ChangePassword(request):
             messages.error(request, 'Current password is incorrect.')
     return redirect('../')
 
-
+def default_scraping(request):
+    user = request.user
+    try:
+        custom_settings = D_Settings.objects.get()
+        context['D_to_account'] = custom_settings.to_account
+        context['D_mention_account'] = custom_settings.mention_account
+        context['D_from_account'] = custom_settings.from_account
+        context['D_headless'] = custom_settings.headless
+        context['D_display_type'] = custom_settings.display_type
+        context['D_interval'] = custom_settings.interval
+        context['D_proxy'] = custom_settings.proxy
+        # context['']
+    except D_Settings.DoesNotExist:
+        # handle case where the user has no settings yet
+        pass
