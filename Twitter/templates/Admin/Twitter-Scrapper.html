@@ -1,0 +1,683 @@
+{% if not user.is_authenticated %}
+<script type="text/javascript">
+  alert("You are not authorized to access this page login first!!");
+  window.location.replace("{% url 'login' %}");
+</script>
+{% endif %}
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Users / Profile </title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{% static 'assets/img/favicon.png' %}" rel="icon">
+  <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/quill/quill.snow.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/quill/quill.bubble.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/remixicon/remixicon.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/simple-datatables/style.css' %}" rel="stylesheet">
+
+  <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="index.html" class="logo d-flex align-items-center">
+        <img src="{% static 'assets/img/logo.png' %}" alt="">
+        <span class="d-none d-lg-block">S.M Scrapper</span>
+      </a>
+      <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div><!-- End Logo -->
+
+    <div class="search-bar">
+      <form class="search-form d-flex align-items-center" method="POST" action="#">
+        <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+        <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+      </form>
+    </div><!-- End Search Bar -->
+
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+
+        <li class="nav-item d-block d-lg-none">
+          <a class="nav-link nav-icon search-bar-toggle " href="#">
+            <i class="bi bi-search"></i>
+          </a>
+        </li><!-- End Search Icon-->
+
+        <li class="nav-item dropdown">
+
+          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+            <i class="bi bi-bell"></i>
+            <span class="badge bg-primary badge-number">4</span>
+          </a><!-- End Notification Icon -->
+
+           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+            <li class="dropdown-header">
+              You have 4 new notifications
+              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-exclamation-circle text-warning"></i>
+              <div>
+                <h4>Twitter</h4>
+                <p>One warning</p>
+                <p>30 min. ago</p>
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-x-circle text-danger"></i>
+              <div>
+                <h4>Face Book</h4>
+                <p>7 warning</p>
+                <p>1 hr. ago</p>
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-check-circle text-success"></i>
+              <div>
+                <h4>Instagram</h4>
+                <p>8 warning </p>
+                <p>2 hrs. ago</p>
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-info-circle text-primary"></i>
+              <div>
+                <h4>orther Notifications</h4>
+                <p>......</p>
+                <p>4 hrs. ago</p>
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li class="dropdown-footer">
+              <a href="#">Show all notifications</a>
+            </li>
+
+          </ul><!-- End Notification Dropdown Items -->
+
+        </li><!-- End Notification Nav -->
+
+        <li class="nav-item dropdown pe-3">
+
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+            <img src="{% static 'assets/img/profile-img.jpg' %}" alt="Profile" class="rounded-circle">
+            <span class="d-none d-md-block dropdown-toggle ps-2">{{ request.user.username }}</span>
+          </a><!-- End Profile Iamge Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li class="dropdown-header">
+              <h6>{{ request.user.first_name }} {{ request.user.last_name }}</h6>
+              <span>Normal User</span>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                <i class="bi bi-person"></i>
+                <span>My Profile</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                <i class="bi bi-gear"></i>
+                <span>Account Settings</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
+                <i class="bi bi-question-circle"></i>
+                <span>Need Help?</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="{% url 'logout' %}">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Sign Out</span>
+              </a>
+            </li>
+
+          </ul>
+        </li>
+
+      </ul>
+    </nav>
+
+  </header><!-- End Header -->
+
+    <aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+      <li class="nav-item">
+        <a class="nav-link " href="{% url 'index' %}">
+          <i class="bi bi-grid"></i>
+          <span>Dashboard</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="{% url 'index' %}">
+          <i class="bi bi-menu-button-wide"></i><span>Manage Scrappers</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{% url 'TwitterScrapper' %}">
+              <i class="bi bi-circle"></i><span>Twitter</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="bi bi-circle"></i><span>FaceBook</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="bi bi-circle"></i><span>Instagram</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-journal-text"></i><span>Manage Model</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="#">
+              <i class="bi bi-circle"></i><span>Manage Words(Model)</span>
+            </a>
+          </li>
+          <li>
+            <a href="forms-layouts.html">
+              <i class="bi bi-circle"></i><span>Train Model</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-layout-text-window-reverse"></i><span>User Manuals</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="#">
+              <i class="bi bi-circle"></i><span>Manual Twitter</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="bi bi-circle"></i><span>Manual Instagram</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-bar-chart"></i><span>Reports</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="#">
+              <i class="bi bi-circle"></i><span>Twitter Reports</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="bi bi-circle"></i><span>Facebook Report</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="bi bi-circle"></i><span>Instagram Report</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="nav-heading">Services</li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{% url 'profile' %}">
+          <i class="bi bi-person"></i>
+          <span>User Profile</span>
+        </a>
+      </li>
+    </ul>
+
+  </aside><!-- End Sidebar-->
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Twitter Dashboard</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url 'index' }">Home</a></li>
+          <li class="breadcrumb-item">Twitter</li>
+          <li class="breadcrumb-item active">Manage</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section profile">
+      <div class="row">
+        <div class="col-xl-4">
+
+          <div class="card">
+            <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+
+              <img src="{% static 'assets/img/twitter.jpeg' %}" alt="Profile" class="rounded-circle">
+              <h2>Twitter Management</h2>
+              <h3>Manage Twitter To Scrappe</h3>
+              <div class="social-links mt-2">
+<!--                 <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+                <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+                <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+                <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a> -->
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col-xl-8">
+
+          <div class="card">
+            <div class="card-body pt-3">
+              <!-- Bordered Tabs -->
+              <ul class="nav nav-tabs nav-tabs-bordered">
+
+                <li class="nav-item">
+                  <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
+                </li>
+
+                <li class="nav-item">
+                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Custom Scrapper Settings</button>
+                </li>
+
+                <li class="nav-item">
+                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-Default">Default Scrapper Settings</button>
+                </li>
+
+                <li class="nav-item">
+                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-settings">Settings</button>
+                </li>
+                <li class="nav-item">
+                  {% if success %}
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                          {{ success }}
+                          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% elif danger %}
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                          {{ danger }}
+                          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                   {% endif %}  
+                </li>
+
+              </ul>
+              <div class="tab-content pt-2">
+
+                <div class="tab-pane fade show active profile-overview" id="profile-overview">
+
+                  <h5 class="card-title">Twitter Details</h5>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Scrapping Results</div>
+                    <a href="{% url 'Result_CSV' %}" class="col-lg-9 col-md-8">Scrapping Result Per Day</a>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Scraping Operation</div>
+                    <a href="{% url 'Operation' %}" class="col-lg-9 col-md-8">View Scraping Operation</a>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Preview Result</div>
+                    <a href="#" class="col-lg-9 col-md-8">Preview Account Detected</a>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Tweets</div>
+                    <a href="#" class="col-lg-9 col-md-8">View Tweets Detected</a>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Acconts Avators</div>
+                    <a href="#" class="col-lg-9 col-md-8">View Accounts Avators</a>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">View Full Report</div>
+                    <a href="#" class="col-lg-9 col-md-8">View Report</a>
+                  </div>
+
+                  <!-- <div class="row">
+                    <div class="col-lg-3 col-md-4 label">No of Suspected Tweets</div>
+                    <div class="col-lg-9 col-md-8">250 per day</div>
+                  </div> -->
+
+                </div>
+
+                <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
+
+                  <!-- Custom Scrapper Settings-->
+                  <form action="{% url 'TwitterScrapper' %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row mb-3">
+                      <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Account Type</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="AccountType" type="text" class="form-control" id="AccountType" value="loading...!!" disabled />
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="about" class="col-md-4 col-lg-3 col-form-label">List Of Account</label>
+                      <div class="col-md-8 col-lg-9">
+                        <textarea name="TargetedAccount" class="form-control" id="TargetedAccount" style="height: 100px">{{ mention_account }}</textarea>
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="company" class="col-md-4 col-lg-3 col-form-label">From Account</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="FromAccount" type="text" class="form-control" id="FromAccount" value="{{ from_account }}">
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="company" class="col-md-4 col-lg-3 col-form-label">To Account</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="ToAccount" type="text" class="form-control" id="ToAccount" value="{{ to_account }}">
+                      </div>
+                    </div>
+
+
+                    <div class="row mb-3">
+                      <label for="about" class="col-md-4 col-lg-3 col-form-label">Dictionary/ Words Lists</label>
+                      <div class="col-md-8 col-lg-9">
+                        <textarea name="Dictionary" class="form-control" id="TargetedAccount" style="height: 100px">{{ messages }}</textarea>
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="Address" class="col-md-4 col-lg-3 col-form-label">Select Headless Type</label>
+                      <div class="col-md-8 col-lg-9">
+	                    <select class="form-select" aria-label="multiple select example" name="Headless" id="Headless">
+                          <option selected>{{ headless }}</option>
+		                      <optgroup label="Select True Of False Default is True Headless">
+		                      <option value="1">True</option>
+		                      <option value="2">False</option>
+	                    </select>
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Display Type</label>
+                      <div class="col-md-8 col-lg-9">
+                        <select class="form-select" aria-label="multiple select example" name="Display_type" id="Display_type">
+                          <option selected>{{ display_type }}</option>
+		                      <optgroup label="Select Type Od Display Which Will be Scrapped">
+		                      <option value="Top">Top</option>
+		                      <option value="Latest">Latest</option>
+		                      <option value="People">People</option>
+		                      <option value="Photos">Photos</option>
+		                      <option value="Video">Video</option>
+	                    </select>
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="Email" class="col-md-4 col-lg-3 col-form-label">Interval</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="Interval" type="number" class="form-control" id="Interval" value="{{ interval }}">
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="Twitter" class="col-md-4 col-lg-3 col-form-label">Proxy</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="proxy" type="text" class="form-control" id="proxy" value="{{ display_type }}">
+                      </div>
+                    </div>
+
+                    <div class="text-center">
+                      <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </div>
+                  </form><!-- End Custom Scrapper Settings -->
+
+                </div>
+
+                <div class="tab-pane fade pt-3" id="profile-settings">
+
+                  <!-- Settings Form -->
+                  <form>
+
+                    <div class="row mb-3">
+                      <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Scrapping Status</label>
+                      <div class="col-md-8 col-lg-9">
+                        <div class="col-sm-10">
+                          <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Customer Setting:</label>
+                          </div>
+                          <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
+                            <label class="form-check-label" for="flexSwitchCheckChecked">Default Setting:</label>
+                          </div>
+                          <!-- <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDisabled" disabled>
+                            <label class="form-check-label" for="flexSwitchCheckDisabled">Disabled switch checkbox input</label>
+                          </div>
+                          <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckCheckedDisabled" checked disabled>
+                            <label class="form-check-label" for="flexSwitchCheckCheckedDisabled">Disabled checked switch checkbox input</label> -->
+                          </div>
+                      </div>
+                    </div>
+                    </div>
+<!-- 
+                    <div class="text-center">
+                      <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </div> -->
+                  </form><!-- End settings Form -->
+
+                </div>
+
+                <div class="tab-pane fade pt-3" id="profile-change-Default">
+                   <!-- Default Scrapper Settings-->
+                   <form>
+                    <!-- <div class="row mb-3">
+                      <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Update Twitter Image</label>
+                      <div class="col-md-8 col-lg-9">
+                        <img src="{% static 'assets/img/twitter.jpeg' %}" alt="Profile">
+                        <div class="pt-2">
+                          <a href="#" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="bi bi-upload"></i></a>
+                          <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>
+                        </div>
+                      </div>
+                    </div> -->
+
+                    <div class="row mb-3">
+                      <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Account Type</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="AccountType" type="text" class="form-control" id="AccountType" value="Loading....." readonly>
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="about" class="col-md-4 col-lg-3 col-form-label">Targeted Account/List Of Account</label>
+                      <div class="col-md-8 col-lg-9">
+                        <textarea name="TargetedAccount" class="form-control" id="TargetedAccount" style="height: 100px" readonly>{{ request.D_Settings.mention_account }}</textarea>
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="company" class="col-md-4 col-lg-3 col-form-label">From Account</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="FromAccount" type="text" class="form-control" id="FromAccount" value="{{ request.D_Settings.from_account }}" readonly>
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="company" class="col-md-4 col-lg-3 col-form-label">To Account</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="ToAccount" type="text" class="form-control" id="ToAccount" value="{{ request.D_Settings.to_account }}" readonly>
+                      </div>
+                    </div>
+
+
+                    <div class="row mb-3">
+                      <label for="about" class="col-md-4 col-lg-3 col-form-label">Dataset/ Words Lists</label>
+                      <div class="col-md-8 col-lg-9">
+                        <textarea name="TargetedAccount" class="form-control" id="TargetedAccount" style="height: 100px" readonly>{{ messages }}</textarea>
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="Address" class="col-md-4 col-lg-3 col-form-label">Select Headless Type</label>
+                      <div class="col-md-8 col-lg-9">
+	                    <select class="form-select" aria-label="multiple select example" name="Headless" id="Headless" readonly>
+                          <option selected>{{ request.D_Settings.headless }}</option>
+		                      <optgroup label="Select True Of False Default is True Headless">
+		                      <option value="1">True</option>
+		                      <option value="2">False</option>
+	                    </select>
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Display Type</label>
+                      <div class="col-md-8 col-lg-9">
+                        <select class="form-select" aria-label="multiple select example" name="Display_type" id="Display_type" readonly>
+                          <option selected>{{ request.D_Settings.display_type }}</option>
+		                      <optgroup label="Select Type Od Display Which Will be Scrapped">
+		                      <option value="Top">Top</option>
+		                      <option value="Latest">Latest</option>
+		                      <option value="People">People</option>
+		                      <option value="Photos">Photos</option>
+		                      <option value="Video">Video</option>
+	                    </select>
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="Email" class="col-md-4 col-lg-3 col-form-label">Interval</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="Interval" type="number" class="form-control" id="Interval" value="{{ request.D_Settings.interval }}" readonly>
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="Twitter" class="col-md-4 col-lg-3 col-form-label">Proxy</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="proxy" type="text" class="form-control" id="proxy" value="{{ request.D_Settings.display_type }}" readonly>
+                      </div>
+                    </div>
+
+                    <div class="text-center">
+                      <button type="submit" class="btn btn-primary" disabled>Save Changes</button>
+                    </div>
+                  </form><!-- End Default Scrapper Settings -->
+                </div>
+
+              </div><!-- End Bordered Tabs -->
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+<!-- ======= Footer ======= -->
+<footer id="footer" class="footer">
+  <div class="copyright">
+    &copy; Copyright <strong><span>2023</span></strong>. All Rights Reserved
+  </div>
+  <div class="credits">
+    Developed by <a href="http://44.204.50.98/business_card_v2/2022/12/10/business-card-V2/index.html">HackerDavid(MasterCode)</a>
+  </div>
+</footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'assets/vendor/apexcharts/apexcharts.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/chart.js/chart.umd.js' %}"></script>
+  <script src="{% static 'assets/vendor/echarts/echarts.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/quill/quill.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/simple-datatables/simple-datatables.js' %}"></script>
+  <script src="{% static 'assets/vendor/tinymce/tinymce.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
+
+  <script src="{% static 'assets/js/main.js' %}"></script>
+
+</body>
+
+</html>
