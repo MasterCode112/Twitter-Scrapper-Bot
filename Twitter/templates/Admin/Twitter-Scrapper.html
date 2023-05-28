@@ -363,7 +363,7 @@
                 <li class="nav-item">
                   <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-settings">Settings</button>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item pl-4">
                   {% if success %}
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
                           {{ success }}
@@ -394,10 +394,6 @@
                     <a href="{% url 'Operation' %}" class="col-lg-9 col-md-8">View Scraping Operation</a>
                   </div>
 
-                  <!-- <div class="row">
-                    <div class="col-lg-3 col-md-4 label">Preview Result</div>
-                    <a href="#" class="col-lg-9 col-md-8">Preview Account Detected</a>
-                  </div> -->
 
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label">Tweets</div>
@@ -408,16 +404,6 @@
                     <div class="col-lg-3 col-md-4 label">Acconts Avators</div>
                     <a href="#" class="col-lg-9 col-md-8">View Accounts Avators</a>
                   </div>
-
-                  <!-- <div class="row">
-                    <div class="col-lg-3 col-md-4 label">View Full Report</div>
-                    <a href="#" class="col-lg-9 col-md-8">View Report</a>
-                  </div> -->
-
-                  <!-- <div class="row">
-                    <div class="col-lg-3 col-md-4 label">No of Suspected Tweets</div>
-                    <div class="col-lg-9 col-md-8">250 per day</div>
-                  </div> -->
 
                 </div>
 
@@ -458,7 +444,7 @@
                     <div class="row mb-3">
                       <label for="about" class="col-md-4 col-lg-3 col-form-label">Dictionary/ Words Lists</label>
                       <div class="col-md-8 col-lg-9">
-                        <textarea name="Dictionary" class="form-control" id="TargetedAccount" style="height: 100px">{{ messages }}</textarea>
+                        <textarea name="Dictionary" class="form-control" id="TargetedAccount" style="height: 100px" placeholder="word one//words two//words three//words four"></textarea>
                       </div>
                     </div>
 
@@ -468,8 +454,22 @@
 	                    <select class="form-select" aria-label="multiple select example" name="Headless" id="Headless">
                           <option selected>{{ headless }}</option>
 		                      <optgroup label="Select True Of False Default is True Headless">
-		                      <option value="1">True</option>
-		                      <option value="2">False</option>
+		                      <option value="True">True</option>
+		                      <option value="False">False</option>
+	                    </select>
+                      </div>
+                    </div>
+
+                    
+
+                    <div class="row mb-3">
+                      <label for="Address" class="col-md-4 col-lg-3 col-form-label">Resume</label>
+                      <div class="col-md-8 col-lg-9">
+	                    <select class="form-select" aria-label="multiple select example" name="resume" id="resume" readonly>
+                          <option selected>{{ resume }}</option>
+		                      <optgroup label="Select True Of False Default is True Headless">
+		                      <option value="True">True</option>
+		                      <option value="False">False</option>
 	                    </select>
                       </div>
                     </div>
@@ -513,35 +513,63 @@
                 <div class="tab-pane fade pt-3" id="profile-settings">
 
                   <!-- Settings Form -->
-                  <form>
 
                     <div class="row mb-3">
                       <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Scrapping Status</label>
                       <div class="col-md-8 col-lg-9">
-                        <div class="col-sm-10">
-                          <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                            <label class="form-check-label" for="flexSwitchCheckDefault">Customer Setting:</label>
+                        <form action="{% url 'setup' %}" method="POST" enctype="multipart/form-data">
+                          {% csrf_token %}
+                          <div class="col-sm-10">
+                            <div class="form-check form-switch">
+                              {% if request.user.userprofile.status_scraping == "c_settings" %}
+                              {% with "checked" as custom %}
+                              <input class="form-check-input" value="c_settings" type="checkbox" id="flexSwitchCheckDefault" {{ custom }} onchange="toggleSwitch('flexSwitchCheckDefault', 'flexSwitchCheckChecked')">
+                              {{ custom }}
+                              {% endwith %}
+                              {% else %}
+                              <input class="form-check-input" name="status_scraping" value="c_settings" type="checkbox" id="flexSwitchCheckDefault" onchange="toggleSwitch('flexSwitchCheckDefault', 'flexSwitchCheckChecked')">
+                              {% endif %}
+                              <label class="form-check-label" for="flexSwitchCheckDefault">Customer Setting:</label>
+                            </div>
+                            <div class="form-check form-switch">
+                              {% if request.user.userprofile.status_scraping == "d_settings" %}
+                              {% with "checked" as default %}
+                              <input class="form-check-input" name="status_scraping" type="checkbox" value="d_settings" {{ default }} id="flexSwitchCheckChecked"  onchange="toggleSwitch('flexSwitchCheckChecked', 'flexSwitchCheckDefault')">
+                              {% endwith %}
+                              {% else %}
+                              <input class="form-check-input" name="status_scraping" type="checkbox" value="d_settings" id="flexSwitchCheckChecked"  onchange="toggleSwitch('flexSwitchCheckChecked', 'flexSwitchCheckDefault')">
+                              {% endif %}
+                              <label class="form-check-label" for="flexSwitchCheckChecked">Default Setting:</label>
+                            </div>
+
+                            <div class="text-center">
+                              <button type="submit" class="btn btn-primary">Save Changes</button>
+                            </div>
                           </div>
-                          <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
-                            <label class="form-check-label" for="flexSwitchCheckChecked">Default Setting:</label>
+                        </form>
+                        
+                        <script>
+                          let timer;
+                          let lastSwitch;
+                        
+                          function toggleSwitch(currentSwitchId, otherSwitchId) {
+                            if (lastSwitch !== currentSwitchId) {
+                              clearTimeout(timer);
+                              const otherSwitch = document.getElementById(otherSwitchId);
+                              otherSwitch.checked = false;
+                              timer = setTimeout(() => {
+                                const submitButton = document.getElementById('submitButton');
+                                submitButton.disabled = false;
+                              }, 1000);
+                            }
+                            lastSwitch = currentSwitchId;
+                          }
+                        </script>
                           </div>
-                          <!-- <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDisabled" disabled>
-                            <label class="form-check-label" for="flexSwitchCheckDisabled">Disabled switch checkbox input</label>
-                          </div>
-                          <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckCheckedDisabled" checked disabled>
-                            <label class="form-check-label" for="flexSwitchCheckCheckedDisabled">Disabled checked switch checkbox input</label> -->
                           </div>
                       </div>
                     </div>
                     </div>
-<!-- 
-                    <div class="text-center">
-                      <button type="submit" class="btn btn-primary">Save Changes</button>
-                    </div> -->
                   </form><!-- End settings Form -->
 
                 </div>
@@ -549,17 +577,6 @@
                 <div class="tab-pane fade pt-3" id="profile-change-Default">
                    <!-- Default Scrapper Settings-->
                    <form>
-                    <!-- <div class="row mb-3">
-                      <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Update Twitter Image</label>
-                      <div class="col-md-8 col-lg-9">
-                        <img src="{% static 'assets/img/twitter.jpeg' %}" alt="Profile">
-                        <div class="pt-2">
-                          <a href="#" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="bi bi-upload"></i></a>
-                          <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>
-                        </div>
-                      </div>
-                    </div> -->
-
                     <div class="row mb-3">
                       <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Account Type</label>
                       <div class="col-md-8 col-lg-9">
@@ -592,7 +609,7 @@
                     <div class="row mb-3">
                       <label for="about" class="col-md-4 col-lg-3 col-form-label">Dataset/ Words Lists</label>
                       <div class="col-md-8 col-lg-9">
-                        <textarea name="TargetedAccount" class="form-control" id="TargetedAccount" style="height: 100px" readonly>{{ messages }}</textarea>
+                        <textarea name="TargetedAccount" class="form-control" id="TargetedAccount" style="height: 100px;">{{ messages }}</textarea>
                       </div>
                     </div>
 
@@ -602,8 +619,20 @@
 	                    <select class="form-select" aria-label="multiple select example" name="Headless" id="Headless" readonly>
                           <option selected>{{ request.D_Settings.headless }}</option>
 		                      <optgroup label="Select True Of False Default is True Headless">
-		                      <option value="1">True</option>
-		                      <option value="2">False</option>
+		                      <option value="True">True</option>
+		                      <option value="False">False</option>
+	                    </select>
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="Address" class="col-md-4 col-lg-3 col-form-label">Resume</label>
+                      <div class="col-md-8 col-lg-9">
+	                    <select class="form-select" aria-label="multiple select example" name="Headless" id="Headless" readonly>
+                          <option selected>{{ request.D_Settings.resume }}</option>
+		                      <optgroup label="Select True Of False Default is True Headless">
+		                      <option value="True">True</option>
+		                      <option value="False">False</option>
 	                    </select>
                       </div>
                     </div>

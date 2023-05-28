@@ -23,7 +23,9 @@
 
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -73,7 +75,7 @@
             <span class="badge bg-primary badge-number">4</span>
           </a><!-- End Notification Icon -->
 
-           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
             <li class="dropdown-header">
               You have 4 new notifications
               <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
@@ -202,7 +204,7 @@
 
   </header><!-- End Header -->
 
-    <aside id="sidebar" class="sidebar">
+  <aside id="sidebar" class="sidebar">
 
     <ul class="sidebar-nav" id="sidebar-nav">
 
@@ -214,7 +216,8 @@
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="{% url 'index' %}">
+        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse"
+          href="{% url 'index' %}">
           <i class="bi bi-menu-button-wide"></i><span>Manage Scrappers</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
@@ -256,7 +259,8 @@
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-layout-text-window-reverse"></i><span>User Manuals</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-layout-text-window-reverse"></i><span>User Manuals</span><i
+            class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
@@ -321,7 +325,7 @@
       </nav>
     </div><!-- End Page Title -->
     <div class="row">
-      
+
       <div class="col-xl-1">
         <!-- {% for file in file_links %}
           {% if latest_file and file.modified == latest_file.modified %}
@@ -331,68 +335,80 @@
           {% endif %}
         {% endfor %} -->
       </div>
-      
-                
-              <!-- Dark Table -->
-              <div class="table-responsive col-xl-10">
-              <table class="table table-success table-striped table-hover">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Username</th>
-                    <th scope="col">Toxics</th>
-                    <th scope="col">Text</th>
-                    <th scope="col">Embedded_text</th>
-                    <th scope="col">Emojis</th>
-                    <th scope="col">Comments</th>
-                    <th scope="col">Likes</th>
-                    <th scope="col">Retweets</th>
-                    <th scope="col">Image link</th>
-                    <th scope="col">Tweet URL</th>
-                    <th scope="col">Timestamp</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {% for row in csv_data %}
-                  <tr>
-                    <th scope="row">{{ forloop.counter }}</th>
-                    <td>{{ row.UserName }}</td>
-                    <td>{{ row.Toxic }}</td>
-                    <td>{{ row.Text }}</td>
-                    <td>{{ row.Embedded_text }}</td>
-                    <td>{{ row.Emojis }}</td>
-                    <td>{{ row.Comments }}</td>
-                    <td>{{ row.Likes }}</td>
-                    <td>{{ row.Retweets }}</td>
-                    <td><img src="{{ row.Image_link }}"/></td>
-                    <td><a href="{{ row.Tweet_URL }}">Preview</a></td>
-                    <td>{{ row.Timestamp }}</td>
-                  </tr>
-                  {% endfor %}
-                </tbody>
-              </table>
-            </div>
-            <div class="col-xl-2"></div>
-            </div>
-          </div>
 
-        </div>
+
+      <!-- Dark Table -->
+      <div class="table-responsive col-xl-10">
+        <table class="table table-success table-striped table-hover">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Username</th>
+              <th scope="col">Toxics</th>
+              <th scope="col">Text</th>
+              <th scope="col">Embedded_text</th>
+              <th scope="col">Emojis</th>
+              <th scope="col">Comments</th>
+              <th scope="col">Likes</th>
+              <th scope="col">Retweets</th>
+              <th scope="col">Image link</th>
+              <th scope="col">Tweet URL</th>
+              <th scope="col">Timestamp</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in csv_data %}
+            <tr>
+              <th scope="row">{{ forloop.counter }}</th>
+              <td>{{ row.UserName }}</td>
+              <td>{{ row.Toxic }}</td>
+              <td>{{ row.Text }}</td>
+              <td>{{ row.Embedded_text }}</td>
+              <td>{{ row.Emojis }}</td>
+              <td>{{ row.Comments }}</td>
+              <td>{{ row.Likes }}</td>
+              <td>{{ row.Retweets }}</td>
+              <td><img src="{{ row.Image_link }}" /></td>
+              <td>
+                <a href="" onclick="openPopup('{{ row.Tweet_URL }}')">
+                  Preview
+                </a>
+              </td>
+              <td>{{ row.Timestamp }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
       </div>
+      <div class="col-xl-2">
+        <script>
+          function openPopup(url) {
+            window.open(url, "_blank", "width=800,height=900");
+          }
+        </script>
+      </div>
+    </div>
+    </div>
+
+    </div>
+    </div>
     </section>
 
   </main><!-- End #main -->
 
-<!-- ======= Footer ======= -->
-<footer id="footer" class="footer">
-  <div class="copyright">
-    &copy; Copyright <strong><span>2023</span></strong>. All Rights Reserved
-  </div>
-  <div class="credits">
-    Developed by <a href="http://44.204.50.98/business_card_v2/2022/12/10/business-card-V2/index.html">HackerDavid(MasterCode)</a>
-  </div>
-</footer><!-- End Footer -->
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+    <div class="copyright">
+      &copy; Copyright <strong><span>2023</span></strong>. All Rights Reserved
+    </div>
+    <div class="credits">
+      Developed by <a
+        href="http://44.204.50.98/business_card_v2/2022/12/10/business-card-V2/index.html">HackerDavid(MasterCode)</a>
+    </div>
+  </footer><!-- End Footer -->
 
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
   <script src="{% static 'assets/vendor/apexcharts/apexcharts.min.js' %}"></script>

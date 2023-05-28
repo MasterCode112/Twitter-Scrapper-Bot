@@ -23,7 +23,9 @@
 
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -36,56 +38,76 @@
 
   <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
 </head>
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+    <path
+      d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+  </symbol>
+  <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+    <path
+      d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+  </symbol>
+  <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+    <path
+      d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+  </symbol>
+</svg>
 <style>
-  .spinner{
-	position: absolute;
-	left: 46%;
-	top: 40%;
-	transform: translate(-50%, -50%);
-	width: 100px;
-	height: 100px;
-	border-radius: 50%;
-	border: 8px solid lightgray;
-	border-top:  8px solid tomato;
-	border-bottom:  8px solid tomato;
-	animation: anime 1.4s ease infinite;
-}
+  .spinner {
+    position: absolute;
+    left: 46%;
+    top: 40%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 8px solid lightgray;
+    border-top: 8px solid tomato;
+    border-bottom: 8px solid tomato;
+    animation: anime 1.4s ease infinite;
+  }
 
-@keyframes anime{
-	from{ transform: rotate(0deg); }
-	to{ transform: rotate(360deg); }
-}
+  @keyframes anime {
+    from {
+      transform: rotate(0deg);
+    }
 
-.spinner::before{
-	position: absolute;
-	content: "";
-	width: 200%;
-	height: 200%;
-	left: 50%;
-	top: 50%;
-	border-radius: inherit;
-	opacity: 0.6;
-	transform: translate(-50%, -50%);
-	border: 10px solid lightgray ;
-	border-left: 10px solid red ;
-	border-right: 10px solid red ;
-}
+    to {
+      transform: rotate(360deg);
+    }
+  }
 
-.spinner::after{
-	position: absolute;
-	content: "";
-	width: 300%;
-	height: 300%;
-	left: 50%;
-	top: 50%;
-	border-radius: inherit;
-	opacity: 0.6;
-	transform: translate(-50%, -50%);
-	border: 12px solid lightgray ;
-	border-top: 12px solid red ;
-	border-bottom: 12px solid red ;				
-}
+  .spinner::before {
+    position: absolute;
+    content: "";
+    width: 200%;
+    height: 200%;
+    left: 50%;
+    top: 50%;
+    border-radius: inherit;
+    opacity: 0.6;
+    transform: translate(-50%, -50%);
+    border: 10px solid lightgray;
+    border-left: 10px solid red;
+    border-right: 10px solid red;
+  }
+
+  .spinner::after {
+    position: absolute;
+    content: "";
+    width: 300%;
+    height: 300%;
+    left: 50%;
+    top: 50%;
+    border-radius: inherit;
+    opacity: 0.6;
+    transform: translate(-50%, -50%);
+    border: 12px solid lightgray;
+    border-top: 12px solid red;
+    border-bottom: 12px solid red;
+  }
 </style>
+
 <body>
 
   <!-- ======= Header ======= -->
@@ -122,7 +144,7 @@
             <span class="badge bg-primary badge-number">4</span>
           </a><!-- End Notification Icon -->
 
-           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
             <li class="dropdown-header">
               You have 4 new notifications
               <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
@@ -251,7 +273,7 @@
 
   </header><!-- End Header -->
 
-    <aside id="sidebar" class="sidebar">
+  <aside id="sidebar" class="sidebar">
 
     <ul class="sidebar-nav" id="sidebar-nav">
 
@@ -263,7 +285,8 @@
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="{% url 'index' %}">
+        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse"
+          href="{% url 'index' %}">
           <i class="bi bi-menu-button-wide"></i><span>Manage Scrappers</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
@@ -305,7 +328,8 @@
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-layout-text-window-reverse"></i><span>User Manuals</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-layout-text-window-reverse"></i><span>User Manuals</span><i
+            class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
@@ -375,95 +399,119 @@
 
         <div class="col-xl-12">
           <div>
-            <form action="{% url 'enabled' %}" method="POSt" enctype="multipart/form-data" id="myForm">
-              {% csrf_token %}
-                
+            <center>
+              <h1 class="text-align-center">Scrapping Operation</h1>
+            </center>
+            <p>The scraping operation is currently at <span class="text-success">{{ progress }}%.</span></p>
+            <p>The following data has been scraped:</p>
+
+
               <div class="row mb-3">
-                <div class="col-md-12 col-lg-12">
-                    <div class="form-check form-switch">
-                      <input class="form-check-input form-control" type="checkbox" id="flexSwitchCheckDefault" name='switch' onclick="toggleSwitch()">
-                      <label id="switchLabel" class="form-check-label text-danger" for="flexSwitchCheckDefault">Turn on:</label>
-                      <span class='spinner' style="display:none;"></span>
+                <div class="alert  d-flex align-items-center" role="alert">
+                  <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:">
+                    <use xlink:href="#info-fill" />
+                  </svg>
+                  <div>
+                    {% if request.user.UserProfile == "d_settings" %}
+                    {% with "Default" as model %}
+                    Scrapping no <span class="text-dark fw-bold text-decoration-underline">{{ model }}</span> Model.
+                    {% endwith %}
+                    {% else %}
+                    {% with "Custom" as model %}
+                    Scrapping no <span class="text-dark fw-bold text-decoration-underline">{{ model }}</span> Model.
+                    {% endwith %}
+                    {% endif %}
                   </div>
-                  
+                </div>
+                <div class="col-md-12 col-lg-12">
+                  <div class="form-check form-switch">
+                    <form action="{% url 'enabled' %}" method="POSt" enctype="multipart/form-data" id="myForm">
+                      {% csrf_token %}
+                    <input class="form-check-input form-control align-items-center" type="checkbox"
+                      id="flexSwitchCheckDefault" name='switch' onclick="toggleSwitch()">
+                    <label id="switchLabel" class="form-check-label text-dark align-items-center"
+                      for="flexSwitchCheckDefault">Turn
+                      on:</label>
+                    <span class='spinner' style="display:none;"></span>
+                  </form>
+                  </div>
                   <script>
-                     function toggleSwitch() {
-                        document.getElementById('flexSwitchCheckDefault').addEventListener('change', function() {
-                          document.getElementById('myForm').submit();
-                        });
+                    function toggleSwitch() {
+                      document.getElementById('flexSwitchCheckDefault').addEventListener('change', function () {
+                        document.getElementById('myForm').submit();
+                      });
 
-                        var switchLabel = document.getElementById("switchLabel");
-                        if (switchLabel.innerHTML == "Turn on:") {
-                          switchLabel.innerHTML = "Turn off:";
-                          switchLabel.classList.remove("text-danger");
-                          switchLabel.classList.add("text-success");
-                        } else {
-                          switchLabel.innerHTML = "Turn on:";
-                          switchLabel.classList.remove("text-success");
-                          switchLabel.classList.add("text-danger");
-                        }
-
-                        // Add spinner
-                        var spinner = document.querySelector('.spinner');
-                        spinner.classList.add('active');
-
-                        // Submit form after 2 seconds
-                        setTimeout(function() {
-                          spinner.classList.remove('active');
-                        }, 2000);
+                      var switchLabel = document.getElementById("switchLabel");
+                      if (switchLabel.innerHTML == "Turn on:") {
+                        switchLabel.innerHTML = "Turn off:";
+                        switchLabel.classList.remove("text-danger");
+                        switchLabel.classList.add("text-success");
+                      } else {
+                        switchLabel.innerHTML = "Turn on:";
+                        switchLabel.classList.remove("text-success");
+                        switchLabel.classList.add("text-danger");
                       }
 
+                      // Add spinner
+                      var spinner = document.querySelector('.spinner');
+                      spinner.classList.add('active');
+
+                      // Submit form after 2 seconds
+                      setTimeout(function () {
+                        spinner.classList.remove('active');
+                      }, 2000);
+                    }
                   </script>
                 </div>
               </div>
-
-            </form>
           </div>
-
+         <script>
+                    setInterval(function() {
+                    var progress = {{ progress }};
+                    document.querySelector('#progress .progress-bar').style.width = progress + '%';
+                    document.querySelector('#progress .progress-bar-text').textContent = progress + '%';
+                  }, 1000);
+         </script>
           <div id="progress" class="progress">
-            <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+            <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"
+              style="width: 0%">
               <span class="progress-bar-text">0%</span>
             </div>
           </div>
-      
-           <span class="spinner"></span>
-          <script>
-          // Update the progress bar
-          setInterval(function() {
-            var progress = {{ progress }};
-            document.querySelector('#progress .progress-bar').style.width = progress + '%';
-            document.querySelector('#progress .progress-bar-text').textContent = progress + '%';
-          }, 1000); // Update every second
-          </script>
           
-          <h1>Scrapping Operation</h1>
-          
-          <p>The scraping operation is currently at <span class="text-success">{{ progress }}%.</span></p>
-          
-          <p>The following data has been scraped:</p>
-          
-            <span>{{ data }}</span>        
-        </div>
+          <div class="alert alert-success d-flex align-items-center" role="alert">
+            <span class="spinner"></span>
+            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:">
+              <use xlink:href="#check-circle-fill" />
+            </svg>
+            <div>
+              {{ data }}
             </div>
           </div>
 
         </div>
       </div>
+      </div>
+
+      </div>
+      </div>
     </section>
 
   </main><!-- End #main -->
 
-<!-- ======= Footer ======= -->
-<footer id="footer" class="footer">
-  <div class="copyright">
-    &copy; Copyright <strong><span>2023</span></strong>. All Rights Reserved
-  </div>
-  <div class="credits">
-    Developed by <a href="http://44.204.50.98/business_card_v2/2022/12/10/business-card-V2/index.html">HackerDavid(MasterCode)</a>
-  </div>
-</footer><!-- End Footer -->
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+    <div class="copyright">
+      &copy; Copyright <strong><span>2023</span></strong>. All Rights Reserved
+    </div>
+    <div class="credits">
+      Developed by <a
+        href="http://44.204.50.98/business_card_v2/2022/12/10/business-card-V2/index.html">HackerDavid(MasterCode)</a>
+    </div>
+  </footer><!-- End Footer -->
 
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
   <script src="{% static 'assets/vendor/apexcharts/apexcharts.min.js' %}"></script>

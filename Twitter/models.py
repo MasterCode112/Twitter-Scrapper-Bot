@@ -82,7 +82,7 @@ class Auth_users(models.Model):
 
 class D_Settings(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    Primary_key = models.AutoField(primary_key=True, unique=True)
+    D_Id = models.AutoField(primary_key=True, unique=True)
     from_account = models.CharField(max_length=80, null=True)
     to_account = models.CharField(max_length=80, null=True)
     mention_account = models.TextField(null=True)
@@ -94,50 +94,51 @@ class D_Settings(models.Model):
     headless = models.BooleanField(default=True)
     limit = models.IntegerField(null=True)
     display_type = models.CharField(max_length=30, default='Latest')
-    resume = models.CharField(max_length=80, null=True)
+    resume = models.BooleanField(default=False)
     proxy = models.CharField(max_length=20, null=True)
     proximity = models.CharField(max_length=20, null=True)
-    geocode = models.CharField(max_length=80, null=True)
+    geocode = models.CharField(max_length=80, default="-5.93075788869572, 35.890266339859565")
     minreplies = models.IntegerField(null=True)
     minlikes = models.IntegerField(null=True)
     minretweets = models.IntegerField(null=True)
     Seted_Day = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
-        return f"{self.user}'s D_Settings ({self.D_uniq_ID})"
+        return "{}".format(self.D_Id)
 
 
 
 class C_Settings(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    Primary_key = models.AutoField(primary_key=True, null=False, unique=True)
+    C_Id = models.AutoField(primary_key=True, null=False, unique=True)
     from_account = models.CharField(max_length=80, null=True)
     to_account = models.CharField(max_length=80, null=True)
     mention_account = models.TextField(null=True)
     hashtag = models.CharField(max_length=80, null=True)
     until = models.DateTimeField(default=timezone.now)
     since = models.DateTimeField(default=timezone.now() - timezone.timedelta(days=1))
-    interval = models.IntegerField(default=1)
+    interval = models.IntegerField(default=5)
     lang = models.CharField(max_length=8, default='en')
     headless = models.BooleanField(default=True)
     limit = models.IntegerField(null=True)
-    display_type = models.CharField(max_length=30, default='Latest')
-    resume = models.CharField(max_length=100, null=True)
+    display_type = models.CharField(max_length=30, default='Top')
+    resume = models.BooleanField(default=False)
     proxy = models.CharField(max_length=20, null=True)
     proximity = models.CharField(max_length=20, null=True)
-    geocode = models.CharField(max_length=100, null=True)
+    geocode = models.CharField(max_length=100, default="-5.93075788869572, 35.890266339859565")
     minreplies = models.IntegerField(null=True)
     minlikes = models.IntegerField(null=True)
     minretweets = models.IntegerField(null=True)
     Seted_Day = models.DateTimeField(default=timezone.now)
+    words = models.CharField(max_length=300, null=True)
     
 
     def __str__(self):
-        return "{}".format(self.Primary_key)
+        return "{}".format(self.C_Id)
 
 class Result_Output(models.Model):
-    Primary_key = models.AutoField(primary_key=True, null=False, unique=True)
-    FileName = models.CharField(max_length=100, default=None)
+    R_Id = models.AutoField(primary_key=True, null=False, unique=True)
+    FileName = models.CharField(max_length=100, null=True)
     UserScreenName = models.CharField(max_length=100, null=True)
     UserName = models.CharField(max_length=100, null=True)
     Timestamp = models.DateTimeField(null=False)
@@ -152,7 +153,7 @@ class Result_Output(models.Model):
     
 
     def __str__(self):
-        return "{}".format(self.Primary_key)
+        return "{}".format(self.R_Id)
 
 
 
@@ -160,7 +161,8 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     country = models.CharField(max_length=50)
     address = models.CharField(max_length=50)
-    phone = models.CharField(max_length=20)  
+    phone = models.CharField(max_length=20)
+    status_scraping = models.CharField(max_length=20, default="d_settings")  
 
     def __str__(self):
         return "{}".format(self.pk)

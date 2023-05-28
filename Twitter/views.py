@@ -10,8 +10,8 @@ import csv
 from subprocess import Popen, PIPE
 import logging
 import os
-from .models import UserProfile, C_Settings
-from Twitter.Nitter.Scrapper_Boot_Twitter import scrapper_boot
+from .models import UserProfile, C_Settings, D_Settings
+from Twitter.Nitter.Scrapper_Boot_Twitter import scrapper_boot, scrapper_boot_single
 from django.views.decorators.cache import never_cache
 
 def Login(request):
@@ -45,10 +45,12 @@ def Twitter_scrapper(request):
         context['display_type'] = custom_settings.display_type
         context['interval'] = custom_settings.interval
         context['proxy'] = custom_settings.proxy
-        # context['']
+        context['resume'] = custom_settings.resume
     except C_Settings.DoesNotExist:
-        # handle case where the user has no settings yet
-        pass
+        danger = "There no data found in table.!"
+        context = {'messages' : message, 'danger' : danger}
+        return render(request, "Admin/Twitter-Scrapper.html", context)
+    
     if request.method == "POST":
         mention_account = request.POST['TargetedAccount']
         from_account = request.POST['FromAccount']
@@ -57,6 +59,8 @@ def Twitter_scrapper(request):
         display_type = request.POST['Display_type']
         interval = request.POST['Interval']
         proxy = request.POST['proxy']
+        words = request.POST['Dictionary']
+        resume = request.POST['resume']
 
         try:
             custom_settings = C_Settings.objects.get(user=user)
@@ -67,28 +71,44 @@ def Twitter_scrapper(request):
             custom_settings.display_type = display_type
             custom_settings.interval = interval
             custom_settings.proxy = proxy
+            custom_settings.words = words
+            custom_settings.resume = resume
             custom_settings.save()
             if custom_settings:
                 success = "Custom settings updated successfully!"
                 context = {'messages' : message, 'success' : success}
                 return render(request, "Admin/Twitter-Scrapper.html", context)
         except C_Settings.DoesNotExist:
-            custom_settings = C_Settings(user=user, mention_account=mention_account, from_account=from_account, to_account=to_account, headless=headless, display_type=display_type, interval=interval, proxy=proxy)
+            custom_settings = C_Settings(user=user, mention_account=mention_account, from_account=from_account, to_account=to_account,
+                                         headless=headless, display_type=display_type, interval=interval, proxy=proxy, resume=resume)
             custom_settings.save()
             if custom_settings:
                 danger = "Custom settings saving successfully!"
                 context = {'messages' : message, 'success' : danger}
                 return render(request, "Admin/Twitter-Scrapper.html", context)
 
+
     return render(request, "Admin/Twitter-Scrapper.html", context)
 
+def scrapping_setup(request):
+    user = request.user
+    try:
+        profile = user.userprofile
+    except UserProfile.DoesNotExist:
+        profile = UserProfile(user=user)
 
-# def Result_Scrapping_CSV(request):
-    with open('Twitter/Nitter/Scrapper_Boot_Twitter/outputs/my_name_tanzania_uganda_2022-02-02_2023-04-03.csv', 'r') as f:
-        reader = csv.DictReader(f)
-        csv_data = [row for row in reader]
-    context = {'csv_data': csv_data}
-    return render(request, "Admin/Result_CSV.html", context)
+    if request.method == "POST":
+            profile.status_scraping = request.POST['status_scraping']
+            profile.save()
+            if profile:
+                success = "Settings changed successfully!"
+                context = {'success' : success}
+                return render(request, "Admin/Twitter-Scrapper.html", context)
+            else:
+                danger = "Something wrong!"
+                context = {'danger' : danger}
+                return render(request, "Admin/Twitter-Scrapper.html", context)
+    return render(request, "Admin/Twitter-Scrapper.html")
 
 @never_cache
 def Result_Scrapping_CSV(request):
@@ -147,8 +167,34 @@ def enable_scrapping(request):
         while progress < 100:
             time.sleep(1)
             progress += 1
-        scrapper_boot.scrape(since=since, words=words, headless=False)
-        data = scrapper_boot.scrape(since=since, words=words, headless=False, save_dir="Twitter/Nitter/Scrapper_Boot_Twitter/outputs/")
+
+        user = request.user
+        profile_data = UserProfile.objects.get(user=user)
+        if profile_data.status_scraping == "d_settings":
+            scrapper_boot.scrape(since=since, words=words, headless=False)
+            data = scrapper_boot.scrape(since=since, words=words, headless=False, save_dir="Twitter/Nitter/Scrapper_Boot_Twitter/outputs/")
+        else:
+            customer_data = C_Settings.objects.get(user=user)
+            words = customer_data.words
+            # since = customer_data.since.strftime('%Y-%m-%d')
+            # headless = customer_data.headless
+            # until = customer_data.until.strftime('%Y-%m-%d')
+            to_account = customer_data.to_account
+            from_account = customer_data.from_account
+            # mention_account = customer_data.mention_account
+            # resume = customer_data.resume
+            # proxy = customer_data.proxy
+            # proximity = customer_data.proximity
+            # geocode = customer_data.geocode
+            # lang = customer_data.lang
+            # minreplies = customer_data.minreplies
+            # minlikes = customer_data.minlikes
+            # minretweets = customer_data.minretweets
+            # display_type = customer_data.display_type
+            # hashtag = customer_data.hashtag
+
+            scrapper_boot_single.scrape(since=since, words=words, from_account=from_account, headless=False)
+            data = scrapper_boot_single.scrape(since=since,  words=words, from_account=from_account, headless=False, save_dir="Twitter/Nitter/Scrapper_Boot_Twitter/outputs/")
         
         # Pass data as context variable
         context = {'progress': progress, 'data': data}
@@ -255,7 +301,7 @@ def default_scraping(request):
         context['D_display_type'] = custom_settings.display_type
         context['D_interval'] = custom_settings.interval
         context['D_proxy'] = custom_settings.proxy
-        # context['']
+        context['resume'] = custom_settings.resume
     except D_Settings.DoesNotExist:
         # handle case where the user has no settings yet
         pass
