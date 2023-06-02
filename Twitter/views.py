@@ -153,6 +153,13 @@ def Scrapping_Operation(request):
 
 def enable_scrapping(request):
     if request.method == 'POST':
+        data = ""
+        progress = 0
+        context = {'progress': progress, 'data': data}
+        
+        # Render template
+        # return render(request, 'Admin/Scrapping_Operation.html', context=context)
+
         since = '2023-05-03'
         word = "Twitter/Nitter/Scrapper_Boot_Twitter/messagaes.txt"
 
@@ -290,6 +297,7 @@ def ChangePassword(request):
             messages.error(request, 'Current password is incorrect.')
     return redirect('../')
 
+@never_cache
 def default_scraping(request):
     user = request.user
     try:
@@ -305,7 +313,8 @@ def default_scraping(request):
     except D_Settings.DoesNotExist:
         # handle case where the user has no settings yet
         pass
-
+        
+@never_cache
 def dictionary_management(request):
     file_path = "Twitter/Nitter/Scrapper_Boot_Twitter/messagaes.txt"
 
@@ -320,7 +329,7 @@ def dictionary_management(request):
             try:
                 with open(file_path, 'w') as f:
                     f.write(dictionary)
-                context['success'] = "The word was changes successfully!"
+                context['success'] = "The word was changed successfully!"
                 return redirect('dictionary_management')
             except Exception as e:
                 context['error'] = "There was an error adding the word." + str(e)

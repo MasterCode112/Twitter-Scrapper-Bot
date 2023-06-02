@@ -1,6 +1,6 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
-from .views import Login, register, create_account, scrapping_setup, dictionary_management, login_view, open_file, enable_scrapping, index, User_Profile, Twitter_scrapper, Result_Scrapping_CSV, Scrapping_Operation, UserProfileUpdate, ChangePassword
+from .views import Login, register, create_account, default_scraping, scrapping_setup, dictionary_management, login_view, open_file, enable_scrapping, index, User_Profile, Twitter_scrapper, Result_Scrapping_CSV, Scrapping_Operation, UserProfileUpdate, ChangePassword
 
 
 urlpatterns = [
@@ -20,4 +20,5 @@ urlpatterns = [
     path('open_file/', open_file, name='open_file'),
     path('dictionary/', dictionary_management, name='dictionary_manage'),
     path('setupScraping', scrapping_setup, name="setup"),
+    path('DefaultSettings', default_scraping, name="d_settings"),
 ]

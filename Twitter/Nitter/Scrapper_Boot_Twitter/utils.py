@@ -146,10 +146,11 @@ def get_data(card, save_images=True, save_dir=None):
     except:
         text = ""
 
-    # try:
-    #     embedded = card.find_element(by=By.XPATH, value='.//div[2]/div[2]/div[2]').text
-    # except:
-    #     embedded = ""
+    try:
+        embedded_a = card.find_element(by=By.XPATH, value='.//div[1]/div[contains(@class, "tweet-content")]')
+        embedded = handle + " " + embedded_a.text 
+    except:
+        embedded = ""
 
     # # text = comment + embedded
 
@@ -214,8 +215,8 @@ def get_data(card, save_images=True, save_dir=None):
 
     postdate = "2023-02-09"
     # text ="text"
-    embedded = "embedded"
-    emojis = ''
+    # embedded = "embedded"
+    # emojis = ''
     reply_cnt = '12'
     retweet_cnt = '43'
     like_cnt = '23'

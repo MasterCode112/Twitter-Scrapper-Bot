@@ -412,13 +412,13 @@
                     <use xlink:href="#info-fill" />
                   </svg>
                   <div>
-                    {% if request.user.UserProfile == "d_settings" %}
+                    {% if request.user.userprofile.status_scraping == "d_settings" %}
                     {% with "Default" as model %}
-                    Scrapping no <span class="text-dark fw-bold text-decoration-underline">{{ model }}</span> Model.
+                    Scrapping on <span class="text-danger fw-bold text-decoration-underline">{{ model }}</span> Model.
                     {% endwith %}
-                    {% else %}
+                    {% elif request.user.userprofile.status_scraping == "c_settings" %}
                     {% with "Custom" as model %}
-                    Scrapping no <span class="text-dark fw-bold text-decoration-underline">{{ model }}</span> Model.
+                    Scrapping on <span class="text-danger fw-bold text-decoration-underline">{{ model }}</span> Model.
                     {% endwith %}
                     {% endif %}
                   </div>
@@ -460,6 +460,8 @@
                       setTimeout(function () {
                         spinner.classList.remove('active');
                       }, 2000);
+                      document.querySelector('#progress .progress-bar').style.width = 0 + '%';
+                    document.querySelector('#progress .progress-bar-text').textContent = 0 + '%';
                     }
                   </script>
                 </div>

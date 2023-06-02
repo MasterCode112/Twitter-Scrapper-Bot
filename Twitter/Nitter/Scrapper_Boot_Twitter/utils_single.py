@@ -136,9 +136,10 @@ def get_data(card, save_images=True, save_dir=None):
         handle = "handle fail"
 
     try:
-        postdate = card.find_element_by_xpath('.//time').get_attribute('datetime')
+        postdate = card.find_element_by_xpath('.//span[@class="tweet-date"]/a').get_attribute('title')
     except:
-        return
+        postdate = "Date is empty"
+
 
     try:
         text_new = card.find_element(by=By.XPATH, value='.//div[1]/div[contains(@class, "tweet-content")]')
@@ -154,22 +155,18 @@ def get_data(card, save_images=True, save_dir=None):
     # # text = comment + embedded
 
     try:
-        reply_cnt = card.find_element(by=By.XPATH, value='.//div[@data-testid="reply"]').text
-    except:
-        reply_cnt = 0
+        like_element = card.find_element(by=By.XPATH, value='.//div[1]/div[contains(@class, "tweet-stats")]/span[@class="tweet-stat"]/div[contains(@class, "icon-container")]/span[@class="icon-heart"]')
+        retweet_cnt = like_element.text.strip()
+    except NoSuchElementException:
+        retweet_cnt = "0"  # If no like count is found, set it to 0 or any default value you prefer
 
     try:
-        retweet_element = card.find_element(by=By.XPATH, value='.//div[@class="timeline"]/div[@class="timeline-item"]//div[@class="tweet-stats"]//span[@class="icon-retweet"]/parent::div/following-sibling::span')
-        retweet_cnt = retweet_element.text
-    except:
-        retweet_cnt = "N/A"
-        retweet_element = card.find_element(by=By.XPATH, value='.//div[@class="timeline"]/div[@class="timeline-item"]//div[@class="tweet-stats"]//span[@class="icon-retweet"]/parent::div/following-sibling::span')
-        retweet_cnt = retweet_element.text
+        like_element = card.find_element(by=By.XPATH, value='.//div[contains(@class, "tweet-stats")]/span[@class="tweet-stat"]/div[contains(@class, "icon-container")]/span[contains(@class, "icon-heart")]')
+        like_cnt = like_element.text.strip()
+    except NoSuchElementException:
+        like_cnt = "0"  # If no like count is found, set it to 0 or any default value you prefer
 
-    try:
-        like_cnt = card.find_element(by=By.XPATH, value='.//div[@data-testid="like"]').text
-    except:
-        like_cnt = 0
+
 
     try:
         avatar_element = card.find_element_by_xpath('.//a[@class="tweet-avatar"]/img')
@@ -182,12 +179,12 @@ def get_data(card, save_images=True, save_dir=None):
           save_image(image_url, image_url, save_dir)
     # handle promoted tweets
 
-    try:
-        promoted = card.find_element(by=By.XPATH, value='.//div[2]/div[2]/[last()]//span').text == "Promoted"
-    except:
-        promoted = False
-    if promoted:
-        return
+    # try:
+    #     promoted = card.find_element(by=By.XPATH, value='.//div[2]/div[2]/[last()]//span').text == "Promoted"
+    # except:
+    #     promoted = False
+    # if promoted:
+    #     promoted ="false"
 
     # # get a string of all emojis contained in the tweet
     try:
@@ -212,16 +209,20 @@ def get_data(card, save_images=True, save_dir=None):
     except:
         tweet_url = "tweet_url is fail"
 
-    postdate = "2023-02-09"
-    text = text
-    embedded = embedded
-    emojis = emojis
-    reply_cnt = reply_cnt
-    retweet_cnt = retweet_cnt
-    like_cnt = like_cnt
+    # postdate = "2023-02-09"
+    # text = "text"
+    # embedded = 'embedded'
+    # emojis = 'emojis'
+    reply_cnt = '33'
+    retweet_cnt = '11'
+    like_cnt = '12'
+    # handle = "none"
+    # image_links = "none"
+    # tweet_url = "none"
+    # username = "none"
 
     tweet = (
-        username, handle, postdate, text, embedded, emojis, reply_cnt, retweet_cnt, like_cnt, image_links, tweet_url)
+        username, handle, postdate, text, embedded, emojis, reply_cnt, like_cnt, retweet_cnt, image_links, tweet_url)
     return tweet
 
 
@@ -395,8 +396,8 @@ def keep_scroling(driver, data, writer, tweet_ids, scrolling, tweet_parsed, limi
         sleep(random.uniform(0.5, 1.5))
         # get the card of tweets
         # page_cards = driver.find_elements(by=By.XPATH, value='//div[@data-testid="tweet"]')  # changed div by article
-        page_cards = driver.find_elements(by=By.XPATH, value='.//div[@class="timeline-item"]') #changed div by article
-        # print("The page_cards is ", page_cards)
+        page_cards = driver.find_elements(by=By.XPATH, value='.//div[contains(@class, "timeline-item")]') #changed div by article
+        print("The page_cards is ", page_cards)
         for card in page_cards:
             # print("The card is ", card)
             tweet = get_data(card, save_images, save_images_dir)
